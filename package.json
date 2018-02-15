@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
+    "postcss": "6.0.14",
     "typescript": "2.4.2"
   },
   "description": "An Ionic project"
