@@ -16,7 +16,7 @@ import { TerminePage } from '../pages/termine/termine';
   declarations: [
     MyApp,
     HomePage,
-    TerminePage
+    TerminePage,
     MitgliederPage,
     GruppenPage,
     GruppenUebersichtPage
@@ -29,7 +29,7 @@ import { TerminePage } from '../pages/termine/termine';
   entryComponents: [
     MyApp,
     HomePage,
-    TerminePage
+    TerminePage,
     MitgliederPage,
     GruppenPage,
     GruppenUebersichtPage
