@@ -3,16 +3,42 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Übersicht</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <h3>Aktuelle Termine</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-list>
+    <ion-item>
+     
+      <h2>Terminname</h2>
+      <h3>Termininfo</h3>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            
+              <ion-icon name="thumbs-up" item-start></ion-icon>
+              <ion-badge color='green' item-end>0</ion-badge>
+          
+          </ion-col>
+          <ion-col>
+           
+            <ion-icon name="help-circle" item-start></ion-icon>
+              <ion-badge color='yellow' item-end>0</ion-badge>
+            
+          </ion-col>
+          <ion-col>
+           
+              <ion-icon name="thumbs-down" item-start></ion-icon>
+              <ion-badge color ='red' item-end>0</ion-badge>
+          
+          </ion-col>
+        
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
 </ion-content>
