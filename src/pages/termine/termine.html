@@ -1,0 +1,67 @@
+<!--
+  Generated template for the TerminePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Termine</ion-title>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button block color="primary" (click)="showCheckbox()">Gruppe wählen</button>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+          <ion-col col-3>
+            <ion-item>
+              <ion-icon name="calendar" color="primary"></ion-icon>
+            </ion-item>
+          </ion-col>
+          <ion-col >
+              <ion-card-title >
+                  Training
+                </ion-card-title>
+            </ion-col>
+    </ion-row>
+  </ion-grid>
+    <ion-card-content>
+      
+      
+        Bitte 15min früher da sein - wir wollen nen Foto machen!
+      
+    </ion-card-content>
+
+    <ion-grid>
+        <ion-row align-items-center>
+          <ion-col col-3></ion-col>
+          <ion-col col-2 align-items-center>
+            <ion-item color="primary">
+              <ion-icon name="thumbs-up" item-start></ion-icon>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2>
+           <ion-item color="secondary">
+            <ion-icon name="help-circle" item-start></ion-icon>
+              </ion-item>
+              </ion-col>
+              <ion-col col-2>
+                  <ion-item>
+                     <ion-icon name="thumbs-down" item-start></ion-icon>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-3></ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card>
+</ion-content>
