@@ -8,6 +8,7 @@ import { TerminePage } from '../pages/termine/termine'
 import { MitgliederPage } from '../pages/mitglieder/mitglieder';
 import { GruppenPage } from '../pages/gruppen/gruppen';
 import { GruppenUebersichtPage } from '../pages/gruppen-uebersicht/gruppen-uebersicht';
+import { GruppeHinzufuegenPage } from '../pages/gruppe-hinzufuegen/gruppe-hinzufuegen';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,10 +27,8 @@ export class MyApp {
     this.pages = [
       { title: 'Übersicht', component: HomePage },
       { title: 'Termine', component: TerminePage },
-      { title: 'Home', component: HomePage },
       { title: 'Mitglieder', component: MitgliederPage },
-      { title: 'Gruppen', component: GruppenPage },
-      { title: 'GruppenUebersicht', component: GruppenUebersichtPage }
+      { title: 'Gruppen', component: GruppenPage }
     ];
 
   }

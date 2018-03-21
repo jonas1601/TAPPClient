@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GruppenUebersichtPage } from '../gruppen-uebersicht/gruppen-uebersicht';
+import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen';
 
 /**
  * Generated class for the GruppenPage page.
@@ -38,5 +39,9 @@ export class GruppenPage {
 
   openGruppenUebersichtPage() {
     this.navCtrl.push(GruppenUebersichtPage);
+  }
+
+  openGruppeHinzufuegenPage() {
+    this.navCtrl.push(GruppeHinzufuegenPage);
   }
 }
