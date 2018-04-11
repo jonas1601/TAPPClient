@@ -17,7 +17,15 @@
 
 
 <ion-content padding>
-  <button ion-button block color="primary" (click)="showCheckbox()">Gruppe wählen</button>
+  <ion-item>Gruppe:</ion-item>
+  <ion-select [(ngModel)]="groups" multiple="false">
+   <!-- <ion-option *ngFor="let groups of person" [value]="employee"> -->
+      <ion-option selected="true">Gruppe 1</ion-option>
+      <ion-option>Gruppe 2</ion-option>
+  </ion-select>
+
+
+  
 
   <ion-card>
     <ion-grid>
@@ -45,12 +53,12 @@
         <ion-row align-items-center>
           <ion-col col-3></ion-col>
           <ion-col col-2 align-items-center>
-            <ion-item color="primary">
+            <ion-item>
               <ion-icon name="thumbs-up" item-start></ion-icon>
             </ion-item>
           </ion-col>
           <ion-col col-2>
-           <ion-item color="secondary">
+           <ion-item >
             <ion-icon name="help-circle" item-start></ion-icon>
               </ion-item>
               </ion-col>
