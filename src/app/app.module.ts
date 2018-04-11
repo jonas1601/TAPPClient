@@ -12,6 +12,7 @@ import { TerminErstellenPage } from '../pages/termin-erstellen/termin-erstellen'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TerminePage } from '../pages/termine/termine';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { TerminePage } from '../pages/termine/termine';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider
   ]
 })
 export class AppModule {}
