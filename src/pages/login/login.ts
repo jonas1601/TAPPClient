@@ -9,7 +9,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class LoginPage {
   loading: Loading;
-  registerCredentials = { email: '', password: '' };
+  registerCredentials = { username: '', password: '' };
  
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
  
@@ -43,7 +43,7 @@ export class LoginPage {
     this.loading.dismiss();
  
     let alert = this.alertCtrl.create({
-      title: 'Fail',
+      title: 'Fehler',
       subTitle: text,
       buttons: ['OK']
     });
