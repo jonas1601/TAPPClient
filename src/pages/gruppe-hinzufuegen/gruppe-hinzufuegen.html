@@ -20,15 +20,25 @@
   <ion-list>
 
     <ion-item>
-      <ion-label stacked>Name</ion-label>
+      <ion-label stacked>Gruppenname</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
 
   </ion-list>
 
+
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+<ion-list>
+  <ion-item *ngFor="let item of items">
+    {{ item }}
+  </ion-item>
+</ion-list>
+
+
+
   <ion-list radio-group>
     <ion-list-header>
-      Mitglieder
+      Mitglieder hinzufügen
     </ion-list-header>
   
     <ion-item>
@@ -57,5 +67,5 @@
     </ion-item>
   </ion-list>
 
-  <button ion-button full color=primary>Termin erstellen</button>
+  <button ion-button block (click)="openTerminErstellenPage()" >Termin erstellen</button>
 </ion-content>
