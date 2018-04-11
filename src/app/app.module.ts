@@ -27,7 +27,6 @@ import { TerminePage } from '../pages/termine/termine';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
     IonicModule.forRoot(MyApp, {
       monthNames: ['janeiro', 'fevereiro', 'mar\u00e7o','dezember'],
       monthShortNames: ['jan', 'fev', 'mar'],
