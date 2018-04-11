@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { MitgliederPage } from '../pages/mitglieder/mitglieder';
 import { GruppenPage } from '../pages/gruppen/gruppen';
 import { GruppenUebersichtPage } from '../pages/gruppen-uebersicht/gruppen-uebersicht';
@@ -17,7 +16,6 @@ import { TerminePage } from '../pages/termine/termine';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     TerminePage,
     MitgliederPage,
     GruppenPage,
@@ -37,7 +35,6 @@ import { TerminePage } from '../pages/termine/termine';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     TerminePage,
     MitgliederPage,
     GruppenPage,
