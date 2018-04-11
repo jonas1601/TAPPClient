@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Http} from "@angular/http";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {_catch} from "rxjs/operator/catch";
 import {catchError, tap} from "rxjs/operators";
 import {of} from "rxjs/observable/of";
@@ -24,8 +24,8 @@ export class User {
 @Injectable()
 export class AuthServiceProvider {
   currentUser: User;
-  loginUrl :string = "localhost:8080/login";
-  constructor(private http: HttpClient){}
+  loginUrl :string = "http://localhost:8080/login";
+  constructor(public http: HttpClient){}
 
   public login(credentials) {
     if (credentials.username === null || credentials.password === null) {
@@ -33,23 +33,27 @@ export class AuthServiceProvider {
     } else {
       return Observable.create(observer => {
         // At this point make a request to your backend to make a real check!
-        let access;
-        this.http.get<User>(this.loginUrl,{params:{benutzername:credentials.username,pass:credentials.password}})
-         .pipe(
-           tap(user => {
+        let access = true;
+        this.http.post<User>(this.loginUrl,credentials)
+         .subscribe(user => {
                this.currentUser = user;
                access = true;
-             }),
-           catchError(
+             observer.next(access);
+             observer.complete();
+             },
+           err => {
              this.handleError<User>(`getHero id=`)
-      )
+              access = false;
+             observer.next(access);
+             observer.complete();
+           })
 
-         )
+
+
 
        // let access = (credentials.password === "pass" && credentials.email === "email");
         //this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(access);
-        observer.complete();
+
       });
     }
   }

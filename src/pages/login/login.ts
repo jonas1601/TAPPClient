@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
- 
+import {TerminePage} from "../termine/termine";
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -10,18 +11,18 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class LoginPage {
   loading: Loading;
   registerCredentials = { username: '', password: '' };
- 
+
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
- 
+
   public createAccount() {
     this.nav.push('RegisterPage');
   }
- 
+
   public login() {
     this.showLoading()
     this.auth.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {        
-        this.nav.setRoot('TerminPage');
+      if (allowed) {
+        this.nav.setRoot(TerminePage);
       } else {
         this.showError("Zugriff verweigert");
       }
@@ -30,7 +31,7 @@ export class LoginPage {
         this.showError(error);
       });
   }
- 
+
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Bitte Kaffee holen..',
@@ -38,10 +39,10 @@ export class LoginPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     this.loading.dismiss();
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fehler',
       subTitle: text,
