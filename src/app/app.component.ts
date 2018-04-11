@@ -7,8 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { TerminePage } from '../pages/termine/termine'
 import { MitgliederPage } from '../pages/mitglieder/mitglieder';
 import { GruppenPage } from '../pages/gruppen/gruppen';
-import { GruppenUebersichtPage } from '../pages/gruppen-uebersicht/gruppen-uebersicht';
-import { GruppeHinzufuegenPage } from '../pages/gruppe-hinzufuegen/gruppe-hinzufuegen';
+
 
 @Component({
   templateUrl: 'app.html'
