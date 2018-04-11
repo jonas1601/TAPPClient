@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TerminePage } from '../pages/termine/termine';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
       monthShortNames: ['jan', 'fev', 'mar'],
       dayNames: ['domingo', 'segunda-feira', 'ter\u00e7a-feira',],
       dayShortNames: ['dom', 'seg', 'ter'],
-    })
+    }),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
