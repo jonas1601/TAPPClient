@@ -11,6 +11,18 @@
         {{p.title}}
       </button>
     </ion-list>
+    
+    <ion-navbar color="primary">
+      <ion-title menuClose (click)="logout()">
+        Abmelden
+      </ion-title>
+      <ion-buttons end>
+        <button menuClose ion-button (click)="logout()">
+          <ion-icon name="log-out"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+
   </ion-content>
 
 </ion-menu>

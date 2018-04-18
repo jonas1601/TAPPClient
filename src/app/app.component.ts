@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TerminePage } from '../pages/termine/termine'
 import { MitgliederPage } from '../pages/mitglieder/mitglieder';
 import { GruppenPage } from '../pages/gruppen/gruppen';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { LoginPage } from '../pages/login/login';
 
 
 @Component({
@@ -17,7 +19,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private auth: AuthServiceProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -42,5 +44,11 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  public logout() {
+    this.auth.logout().subscribe(succ => {
+      this.nav.setRoot(LoginPage)
+    });
   }
 }
