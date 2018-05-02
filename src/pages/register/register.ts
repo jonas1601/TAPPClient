@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, IonicPage } from 'ionic-angular';
+import {NavController, AlertController, IonicPage, LoadingController, Loading} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
- 
+import {TerminePage} from "../termine/termine";
+
+
+
 @IonicPage()
 @Component({
   selector: 'page-register',
@@ -9,15 +12,19 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class RegisterPage {
   createSuccess = false;
-  registerCredentials = { email: '', password: '' };
- 
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController) { }
- 
+  loading: Loading;
+  registerCredentials = { benutzername: '', password: '',vorname:'',nachname:'' };
+
+  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,private loadingCtrl: LoadingController) { }
+
   public register() {
+    this.showLoading();
+
     this.auth.register(this.registerCredentials).subscribe(success => {
       if (success) {
         this.createSuccess = true;
         this.showPopup("Success", "Account created.");
+        this.nav.setRoot(TerminePage);
       } else {
         this.showPopup("Error", "Problem creating account.");
       }
@@ -26,7 +33,15 @@ export class RegisterPage {
         this.showPopup("Error", error);
       });
   }
- 
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Bitte Kaffee holen..',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
   showPopup(title, text) {
     let alert = this.alertCtrl.create({
       title: title,
@@ -34,7 +49,7 @@ export class RegisterPage {
       buttons: [
         {
           text: 'OK',
-          handler: data => {
+          handler: () => {
             if (this.createSuccess) {
               this.nav.popToRoot();
             }

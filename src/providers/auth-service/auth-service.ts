@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {Http} from "@angular/http";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {_catch} from "rxjs/operator/catch";
-import {catchError, tap} from "rxjs/operators";
 import {of} from "rxjs/observable/of";
+import {HttpClient} from "@angular/common/http";
+import sha256 from 'crypto-js/sha256';
 
 export class User {
   benutzername: string;
@@ -25,9 +23,12 @@ export class User {
 export class AuthServiceProvider {
   currentUser: User;
   loginUrl :string = "http://localhost:8080/login";
+  registerUrl :string = "http://localhost:8080/register";
+
   constructor(public http: HttpClient){}
 
   public login(credentials) {
+    credentials.password = sha256(credentials.password).toString();
     if (credentials.username === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
     } else {
@@ -36,13 +37,17 @@ export class AuthServiceProvider {
         let access = true;
         this.http.post<User>(this.loginUrl,credentials)
          .subscribe(user => {
-               this.currentUser = user;
-               access = true;
+           if (user != null) {
+           this.currentUser = user;
+           access = true;
+         }else{
+            access = false;
+          }
              observer.next(access);
              observer.complete();
              },
-           err => {
-             this.handleError<User>(`getHero id=`)
+           () => {
+             this.handleError<User>("login");
               access = false;
              observer.next(access);
              observer.complete();
@@ -59,13 +64,22 @@ export class AuthServiceProvider {
   }
 
   public register(credentials) {
+    credentials.password = sha256(credentials.password).toString();
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
     } else {
-      // At this point store the credentials to your backend!
       return Observable.create(observer => {
-        observer.next(true);
-        observer.complete();
+        // At this point store the credentials to your backend!
+        this.http.post<User>(this.registerUrl, credentials)
+          .subscribe(user => {
+            this.currentUser = user;
+            observer.next(true);
+            observer.complete();
+
+          }, () => {
+            observer.next(false);
+            observer.complete();
+      });
       });
     }
   }
