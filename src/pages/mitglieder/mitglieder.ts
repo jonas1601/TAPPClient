@@ -20,7 +20,7 @@ export class MitgliederPage {
   radioResult;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alerCtrl: AlertController) {
   }
-
+/*
   doRadio() {
     let alert = this.alerCtrl.create();
     alert.setTitle('Gruppe wählen');
@@ -59,7 +59,7 @@ export class MitgliederPage {
     alert.present().then(() => {
       this.radioOpen = true;
     });
-  }
+  }*/
   ionViewDidLoad() {
     console.log('ionViewDidLoad MitgliederPage');
   }
