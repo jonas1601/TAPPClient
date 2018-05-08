@@ -18,10 +18,15 @@
   <ion-list>
        <ion-item>
         <ion-label>Titel</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input style="text-align: right;"type="text"></ion-input>
       </ion-item>
+        <ion-item>
+            <ion-label>Beschreibung</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+      
       <ion-item>
-        <ion-label>Anfangs-Datum</ion-label>
+        <ion-label >Anfangs-Datum</ion-label>
         <ion-datetime displayFormat="MM/DD/YYYY" ></ion-datetime>
       </ion-item>
       <ion-item>
@@ -35,12 +40,7 @@
       <ion-item>
         <ion-label>End-Zeit</ion-label>
         <ion-datetime displayFormat="h:mm A" ></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Beschreibung</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      
+      </ion-item>     
   </ion-list>
-  <button ion-button block (click)="openGruppenUebersichtPage()" >Termin erstellen</button>
+  <button ion-button block (click)="openGruppenPage()" >Termin erstellen</button>
 </ion-content>

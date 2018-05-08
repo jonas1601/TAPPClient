@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Neue Gruppe erstellen</ion-title>
+    <ion-title>Gruppe erstellen</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,48 +24,19 @@
       <ion-input type="text"></ion-input>
     </ion-item>
 
+    <ion-item>
+        <ion-label stacked>Mitglieder hinzufügen</ion-label>
+      
+
+      </ion-item>
+
   </ion-list>
-
-
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-<ion-list>
-  <ion-item *ngFor="let item of items">
-    {{ item }}
-  </ion-item>
-</ion-list>
-
-
-
-  <ion-list radio-group>
-    <ion-list-header>
-      Mitglieder hinzufügen
-    </ion-list-header>
-  
-    <ion-item>
-      <ion-label>Anna</ion-label>
-      <ion-checkbox value="python" ></ion-checkbox>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Bernd</ion-label>
-      <ion-checkbox value="python" ></ion-checkbox>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Karin</ion-label>
-      <ion-checkbox value="python" ></ion-checkbox>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Kai</ion-label>
-      <ion-checkbox value="python" ></ion-checkbox>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Lennard</ion-label>
-      <ion-checkbox value="python" ></ion-checkbox>
-    </ion-item>
-  </ion-list>
-
-  <button ion-button block (click)="openTerminErstellenPage()" >Termin erstellen</button>
+  <ion-list radio group>
+      <ion-item *ngFor="let item of items">
+          <ion-label>{{item}}</ion-label>
+          <ion-checkbox value="python" ></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  <button ion-button block (click)="openGruppenUebersichtPage()">Gruppe erstellen</button>
 </ion-content>

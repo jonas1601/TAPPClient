@@ -18,23 +18,12 @@
 <ion-content padding>
   <ion-content>
     <ion-item-group>
-      <ion-item-divider color="light">A</ion-item-divider>
-      <ion-item>Anna</ion-item>
-      <ion-item>Alexandra</ion-item>
-      <ion-item>Alex</ion-item>
-      <ion-item-divider color="light">B</ion-item-divider>
-      <ion-item>Bernd</ion-item>
-      <ion-item>Barbara</ion-item>
-      <ion-item-divider color="light">D</ion-item-divider>
-      <ion-item>Dana</ion-item>
-      <ion-item>Doris</ion-item>
-      <ion-item>Daniel</ion-item>
-      <ion-item>Dana</ion-item>
-      <ion-item>Doris</ion-item>
-      <ion-item>Daniel</ion-item>
-      <ion-item>Dana</ion-item>
-      <ion-item>Doris</ion-item>
-      <ion-item>Daniel</ion-item>
+      
+      <ion-item *ngFor="let item of items">
+          {{ item }}
+      </ion-item>
+
+
     </ion-item-group>
   </ion-content>
 </ion-content>

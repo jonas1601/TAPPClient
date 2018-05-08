@@ -17,6 +17,13 @@ import { AlertController } from 'ionic-angular';
 export class MitgliederPage {
 
   radioOpen: boolean;
+
+  items = [
+      'Anna',
+      'Frank',
+      'Therese',
+      'Heinz'
+  ];
   radioResult;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alerCtrl: AlertController) {
   }

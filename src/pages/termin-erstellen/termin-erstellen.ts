@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { GruppenUebersichtPage } from '../gruppen-uebersicht/gruppen-uebersicht';
+import { GruppenPage } from '../gruppen/gruppen';
 
 /**
  * Generated class for the TerminErstellenPage page.
@@ -23,7 +23,7 @@ export class TerminErstellenPage {
     console.log('ionViewDidLoad TerminErstellenPage');
   }
 
-  openGruppenUebersichtPage(){
-    this.navCtrl.push(GruppenUebersichtPage);
+  openGruppenPage(){
+    this.navCtrl.push(GruppenPage);
   }
 }

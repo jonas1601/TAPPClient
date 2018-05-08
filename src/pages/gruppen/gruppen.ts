@@ -28,7 +28,7 @@ export class GruppenPage {
 
   itemSelected(item: string) {
     console.log("Selected Item", item);
-    this.openGruppenUebersichtPage();
+    this.openGruppenUebersichtPage(item);
   }
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -37,8 +37,10 @@ export class GruppenPage {
     console.log('ionViewDidLoad GruppenPage');
   }
 
-  openGruppenUebersichtPage() {
-    this.navCtrl.push(GruppenUebersichtPage);
+  openGruppenUebersichtPage(item:string) {
+
+    this.navCtrl.push(GruppenUebersichtPage,item);
+    
   }
 
   openGruppeHinzufuegenPage() {
