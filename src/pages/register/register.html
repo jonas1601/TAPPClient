@@ -9,42 +9,42 @@
     <ion-title>Registrieren</ion-title>
   </ion-navbar>
 </ion-header>
- 
+
 <ion-content class="login-content" padding>
-  
+
   <div class="login-box">
-    
+
     <form (ngSubmit)="register()" #registerForm="ngForm">
       <ion-row>
         <ion-col>
           <ion-list inset>
 
             <ion-item>
-              <ion-input type="text" placeholder="Vorname" name="firstname" [(ngModel)]="registerCredentials.firstName" required></ion-input>
+              <ion-input type="text" placeholder="Vorname" name="firstname" [(ngModel)]="registerCredentials.vorname" required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input type="text" placeholder="Nachname" name="name" [(ngModel)]="registerCredentials.name" required></ion-input>
+              <ion-input type="text" placeholder="Nachname" name="name" [(ngModel)]="registerCredentials.nachname" required></ion-input>
             </ion-item>
-            
+
             <ion-item>
-              <ion-input type="text" placeholder="Benutzername" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
+              <ion-input type="text" placeholder="Benutzername" name="username" [(ngModel)]="registerCredentials.benutzername" required></ion-input>
             </ion-item>
-            
+
             <ion-item>
               <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
             </ion-item>
-            
+
           </ion-list>
         </ion-col>
       </ion-row>
-      
+
       <ion-row>
         <ion-col class="signup-col">
           <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register</button>
         </ion-col>
       </ion-row>
-      
+
     </form>
   </div>
 </ion-content>
