@@ -18,8 +18,26 @@
 
 
 <ion-content padding>
-    <button ion-button block (click)="openTerminErstellenPage()" >Termin erstellen</button>
-    <button ion-button full color=primary>Person hinzufügen</button>
-    <button ion-button full color=primary (click)="openMitgliederPage()">Mitglieder anzeigen</button>
+
+
+  <ion-card>
+    <ion-card-header>
+      Einstellungen
+    </ion-card-header>
+    <ion-list>
+        <button ion-item (click)="openTerminErstellenPage()">
+            <ion-icon name ="calendar" item-Start ></ion-icon>
+            Termin erstellen
+          </button>
+      <button ion-item (click)="openMitgliederPage()">
+        <ion-icon name ="people" item-Start></ion-icon>
+        Mitglieder anzeigen
+      </button>
+      <button ion-item>
+          <ion-icon name ="person-add" item-Start></ion-icon>
+          Mitglieder hinzufügen
+        </button>
+    </ion-list>
+  </ion-card>
 </ion-content>
 

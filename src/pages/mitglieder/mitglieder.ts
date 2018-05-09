@@ -17,7 +17,7 @@ import { AlertController } from 'ionic-angular';
 export class MitgliederPage {
 
   radioOpen: boolean;
-
+  gruppenName = " ";
   items = [
       'Anna',
       'Frank',
@@ -25,7 +25,8 @@ export class MitgliederPage {
       'Heinz'
   ];
   radioResult;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alerCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alerCtrl: AlertController,public navParams1: NavParams) {
+    this.gruppenName = navParams1.data;
   }
 /*
   doRadio() {

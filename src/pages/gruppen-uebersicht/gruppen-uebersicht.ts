@@ -17,7 +17,7 @@ import { MitgliederPage } from '../mitglieder/mitglieder';
 })
 export class GruppenUebersichtPage {
 
-  gruppenName = "super";
+  gruppenName = " ";
 
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -33,7 +33,7 @@ export class GruppenUebersichtPage {
   }
 
   openMitgliederPage(){
-    this.navCtrl.push(MitgliederPage);
+    this.navCtrl.push(MitgliederPage,this.gruppenName);
   }
 
   setGruppenName(name: string){
