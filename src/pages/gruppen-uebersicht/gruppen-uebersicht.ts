@@ -17,11 +17,13 @@ import { MitgliederPage } from '../mitglieder/mitglieder';
 })
 export class GruppenUebersichtPage {
 
+  gruppenId = 0;
   gruppenName = "super";
 
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.gruppenName = navParams.data;
+    this.gruppenId = navParams.data.id;
+    this.gruppenName = navParams.data.name;
   }
 
   ionViewDidLoad() {
@@ -29,7 +31,7 @@ export class GruppenUebersichtPage {
   }
 
   openTerminErstellenPage(){
-    this.navCtrl.push(TerminErstellenPage);
+    this.navCtrl.push(TerminErstellenPage,this.gruppenId);
   }
 
   openMitgliederPage(){
