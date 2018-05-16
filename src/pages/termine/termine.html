@@ -17,28 +17,32 @@
 
 
 <ion-content padding>
-  <ion-select [(ngModel)]="groups" multiple="false">
-   <!-- <ion-option *ngFor="let groups of person" [value]="employee"> -->
+ <!-- <ion-select [(ngModel)]="groups" multiple="false">
+   <!-- <ion-option *ngFor="let groups of person" [value]="employee">
       <ion-option selected="true">Gruppe 1</ion-option>
       <ion-option>Gruppe 2</ion-option>
-  </ion-select>
+  </ion-select>-->
 
 
-  
 
-  <ion-card>
+  <ion-card *ngFor="let termin of termine">
     <ion-grid>
       <ion-row>
-         
+
           <ion-col >
               <ion-card-title color = "primary" align="center" >
-                  {{terminTitel}}
+                  {{termin.titel}}
                 </ion-card-title>
             </ion-col>
     </ion-row>
   </ion-grid>
     <ion-card-content>
-        {{terminBeschreibung}}
+        {{termin.anfang.toLocaleDateString()}}
+        {{termin.anfang.toLocaleTimeString()}}
+         bis
+        {{termin.ende.toLocaleDateString()}}
+        {{termin.ende.toLocaleTimeString()}}
+        {{termin.beschreibung}}
     </ion-card-content>
 
     <ion-grid>

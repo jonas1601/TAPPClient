@@ -17,7 +17,7 @@ import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen'
 })
 export class GruppenPage {
 
-  items = [
+  gruppen: Gruppe = [
     'Gruppe 1',
     'Gruppe 2',
     'Gruppe 3',
