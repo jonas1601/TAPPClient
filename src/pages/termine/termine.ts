@@ -11,6 +11,8 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class TerminePage {
   username = '';
+  terminTitel = 'Training';
+  terminBeschreibung = 'Bitte 15min früher da sein - wir wollen nen Foto machen!';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private auth: AuthServiceProvider) {
   let info = this.auth.getUserInfo();
