@@ -15,7 +15,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "resources/entities/termin.ts"
+    "resources/entities/termin.ts",
+    "resources/entities/gruppe.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import { GruppenUebersichtPage } from '../gruppen-uebersicht/gruppen-uebersicht';
 import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen';
+import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
+import {HttpClient} from "@angular/common/http";
 
 /**
  * Generated class for the GruppenPage page.
@@ -17,21 +19,14 @@ import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen'
 })
 export class GruppenPage {
 
-  gruppen: Gruppe = [
-    'Gruppe 1',
-    'Gruppe 2',
-    'Gruppe 3',
-    'Gruppe 4',
-    'Gruppe 5'
+  gruppen: Gruppe[];
 
-  ];
-
-  itemSelected(item: string) {
+  itemSelected(item: Gruppe) {
     console.log("Selected Item", item);
-    var gruppenId = 5;
-    this.openGruppenUebersichtPage({id:gruppenId,name:item});
+    this.openGruppenUebersichtPage({id:item.gruppenId,name:item.name});
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private auth: AuthServiceProvider,private http:HttpClient, private loadingCtrl:LoadingController) {
+    this.getGruppenFromPersonId();
   }
 
   ionViewDidLoad() {
@@ -47,4 +42,19 @@ export class GruppenPage {
   openGruppeHinzufuegenPage() {
     this.navCtrl.push(GruppeHinzufuegenPage);
   }
+
+  getGruppenFromPersonId(){
+    let url = this.auth.mainUrl+"/gruppenbypersonid";
+    let loading = this.loadingCtrl.create({
+      content: 'Warten auf Gruppen.\n Bitte Kaffee holen..',
+    });
+    loading.present();
+    this.http.get<Gruppe[]>(url,{params:{personId: this.auth.getUserInfo().personId}})
+      .subscribe(data =>{
+        this.gruppen = data;
+        loading.dismiss();
+      });
+  }
+
+
 }

@@ -11,8 +11,9 @@ import {User} from "../../entities/user";
 @Injectable()
 export class AuthServiceProvider {
   currentUser: User;
-  loginUrl :string = "http://localhost:8080/login";
-  registerUrl :string = "http://localhost:8080/register";
+  mainUrl: string = "http://localhost:8080"
+  loginUrl :string = this.mainUrl+"/login";
+  registerUrl :string = this.mainUrl+"/register";
 
   constructor(public http: HttpClient){}
 
