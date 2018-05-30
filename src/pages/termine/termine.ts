@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Loading, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { AlertController, PopoverController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { TeilnehmerPage } from '../teilnehmer/teilnehmer';
+import { HttpClient } from "@angular/common/http";
+import { User } from "../../entities/user";
 
 @IonicPage()
 @Component({
@@ -10,13 +12,38 @@ import { TeilnehmerPage } from '../teilnehmer/teilnehmer';
   templateUrl: 'termine.html',
 })
 export class TerminePage {
-  username = '';
-  terminTitel = 'Training';
-  terminBeschreibung = 'Bitte 15min früher da sein - wir wollen nen Foto machen!';
+  user: User;
+  termine: Termin[];
+  loading: Loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private auth: AuthServiceProvider, public popoverCtrl: PopoverController) {
-  let info = this.auth.getUserInfo();
-  this.username = info['username'];
+
+  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private auth: AuthServiceProvider,public popoverCtrl: PopoverController, private http: HttpClient) {
+    this.user = this.auth.getUserInfo();
+    this.getTermineZuPerson();
+  }
+
+  getTermineZuPerson() {
+    let url = "http://localhost:8080/terminevonperson";
+    let loading = this.loadingCtrl.create({
+      content: 'Warten auf Termine.\n Bitte Kaffee holen..',
+    });
+    loading.present();
+    this.http.get<Termin[]>(url, {params: {personId: this.user.personId}})
+      .subscribe((objekte) =>
+      {this.termine = objekte ;
+        this.convertToDateObjects();
+      loading.dismiss();
+      console.log(this.termine);
+
+      });
+  }
+
+
+  convertToDateObjects(){
+    for(let termin of this.termine){
+      termin.anfang = new Date(termin.anfang);
+      termin.ende = new Date(termin.ende);
+    }
   }
 
   public logout() {

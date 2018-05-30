@@ -18,29 +18,21 @@
   <ion-list>
        <ion-item>
         <ion-label>Titel</ion-label>
-        <ion-input style="text-align: right;"type="text"></ion-input>
+        <ion-input [(ngModel)]="termin.titel" style="text-align: right;"type="text"></ion-input>
       </ion-item>
         <ion-item>
             <ion-label>Beschreibung</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input [(ngModel)]="termin.beschreibung" type="text"></ion-input>
           </ion-item>
-      
+
       <ion-item>
         <ion-label >Anfangs-Datum</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" ></ion-datetime>
+        <ion-datetime displayFormat="YYYY-MM-DDTHH:mmZ" [(ngModel)]="termin.anfang" ></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End-Datum</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" ></ion-datetime>
+        <ion-datetime displayFormat="YYYY-MM-DDTHH:mmZ" [(ngModel)]="termin.ende" ></ion-datetime>
       </ion-item>
-      <ion-item>
-        <ion-label>Anfangs-Zeit</ion-label>
-        <ion-datetime displayFormat="h:mm A" ></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>End-Zeit</ion-label>
-        <ion-datetime displayFormat="h:mm A" ></ion-datetime>
-      </ion-item>     
   </ion-list>
-  <button ion-button block (click)="openGruppenPage()" >Termin erstellen</button>
+  <button ion-button block (click)="erstelleTermin()" >Termin erstellen</button>
 </ion-content>

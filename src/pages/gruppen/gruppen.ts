@@ -17,7 +17,7 @@ import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen'
 })
 export class GruppenPage {
 
-  items = [
+  gruppen: Gruppe = [
     'Gruppe 1',
     'Gruppe 2',
     'Gruppe 3',
@@ -28,7 +28,8 @@ export class GruppenPage {
 
   itemSelected(item: string) {
     console.log("Selected Item", item);
-    this.openGruppenUebersichtPage(item);
+    var gruppenId = 5;
+    this.openGruppenUebersichtPage({id:gruppenId,name:item});
   }
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -37,10 +38,10 @@ export class GruppenPage {
     console.log('ionViewDidLoad GruppenPage');
   }
 
-  openGruppenUebersichtPage(item:string) {
+  openGruppenUebersichtPage(data:{id:number,name:string,}) {
 
-    this.navCtrl.push(GruppenUebersichtPage,item);
-    
+    this.navCtrl.push(GruppenUebersichtPage,data);
+
   }
 
   openGruppeHinzufuegenPage() {
