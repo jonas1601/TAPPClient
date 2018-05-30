@@ -21,7 +21,7 @@ export class User {
 
 @Injectable()
 export class AuthServiceProvider {
-  currentUser: User = new User("melukas","187","Peter","Wackel");
+  currentUser: User;
   loginUrl :string = "http://localhost:8080/login";
   registerUrl :string = "http://localhost:8080/register";
 
