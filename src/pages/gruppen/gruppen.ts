@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController} from 'ionic-angular';
 import { GruppenUebersichtPage } from '../gruppen-uebersicht/gruppen-uebersicht';
 import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen';
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {HttpClient} from "@angular/common/http";
+import {Gruppe} from "../../entities/gruppe";
 
 /**
  * Generated class for the GruppenPage page.
@@ -23,18 +24,16 @@ export class GruppenPage {
 
   itemSelected(item: Gruppe) {
     console.log("Selected Item", item);
-    this.openGruppenUebersichtPage({id:item.gruppenId,name:item.name});
+    this.openGruppenUebersichtPage(item);
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams,private auth: AuthServiceProvider,private http:HttpClient, private loadingCtrl:LoadingController) {
+  constructor(public navCtrl: NavController,private auth: AuthServiceProvider,private http:HttpClient, private loadingCtrl:LoadingController) {
     this.getGruppenFromPersonId();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GruppenPage');
-  }
 
-  openGruppenUebersichtPage(data:{id:number,name:string,}) {
 
+  openGruppenUebersichtPage(gruppe:Gruppe) {
+    let data = {gruppe: gruppe};
     this.navCtrl.push(GruppenUebersichtPage,data);
 
   }
@@ -53,7 +52,10 @@ export class GruppenPage {
       .subscribe(data =>{
         this.gruppen = data;
         loading.dismiss();
-      });
+      },err => {
+        loading.dismiss();
+        alert("Fehler beim Laden"+err);
+      })
   }
 
 

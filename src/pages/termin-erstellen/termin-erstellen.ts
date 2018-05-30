@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GruppenPage } from '../gruppen/gruppen';
 import {HttpClient} from "@angular/common/http";
+import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 
 /**
  * Generated class for the TerminErstellenPage page.
@@ -24,21 +25,15 @@ export class TerminErstellenPage {
     ende: '',
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HttpClient, private auth:AuthServiceProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TerminErstellenPage');
-  }
 
-  openGruppenPage(){
-    console.log(this.termin);
 
-  }
 
   erstelleTermin(){
-    var url = 'http://localhost:8080/termin';
-    this.http.post(url,this.termin,{params:{gruppenId:this.navParams.data}}).subscribe();
+    let url = this.auth.mainUrl+"/termin";
+    this.http.post(url,this.termin,{params:{gruppenId:this.navParams.data.gruppenId}}).subscribe();
     this.navCtrl.push(GruppenPage);
   }
 }

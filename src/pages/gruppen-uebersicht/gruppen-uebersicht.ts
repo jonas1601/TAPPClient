@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TerminErstellenPage } from '../termin-erstellen/termin-erstellen';
 import { MitgliederPage } from '../mitglieder/mitglieder';
+import {Gruppe} from "../../entities/gruppe";
 
 /**
  * Generated class for the GruppenUebersichtPage page.
@@ -17,28 +18,22 @@ import { MitgliederPage } from '../mitglieder/mitglieder';
 })
 export class GruppenUebersichtPage {
 
-  gruppenId = 0;
-  gruppenName = "super";
+  gruppe: Gruppe;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.gruppenId = navParams.data.id;
-    this.gruppenName = navParams.data.name;
+    this.gruppe = navParams.data.gruppe;
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GruppenUebersichtPage');
-  }
 
   openTerminErstellenPage(){
-    this.navCtrl.push(TerminErstellenPage,this.gruppenId);
+    this.navCtrl.push(TerminErstellenPage,this.gruppe);
   }
 
   openMitgliederPage(){
-    this.navCtrl.push(MitgliederPage,this.gruppenName);
+    this.navCtrl.push(MitgliederPage,this.gruppe);
   }
 
-  setGruppenName(name: string){
-    this.gruppenName = name;
-  }
+
 }

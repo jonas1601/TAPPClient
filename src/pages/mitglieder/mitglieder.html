@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Mitglieder {{gruppenName}}</ion-title>
+    <ion-title>Mitglieder {{gruppe.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -18,9 +18,9 @@
 <ion-content padding>
   <ion-content>
     <ion-item-group>
-      
-      <ion-item *ngFor="let item of items">
-          {{ item }}
+
+      <ion-item *ngFor="let mitglied of mitglieder">
+          {{ mitglied.vorname}} {{mitglied.nachname }}
       </ion-item>
 
 

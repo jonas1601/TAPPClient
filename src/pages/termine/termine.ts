@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, Loading, LoadingController, NavController, NavParams } from 'ionic-angular';
-import { AlertController, PopoverController } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, IonicPage, Loading, LoadingController, NavController} from 'ionic-angular';
+import { PopoverController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { TeilnehmerPage } from '../teilnehmer/teilnehmer';
 import { HttpClient } from "@angular/common/http";
 import { User } from "../../entities/user";
+import {Termin} from "../../entities/termin";
+import {Status} from "../../entities/status";
 
 @IonicPage()
 @Component({
@@ -12,27 +14,42 @@ import { User } from "../../entities/user";
   templateUrl: 'termine.html',
 })
 export class TerminePage {
+  @ViewChild(Content) content: Content;
   user: User;
-  termine: Termin[];
+  termine: Termin[] = null;
+  stati: Status[] = null;
   loading: Loading;
 
 
-  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private auth: AuthServiceProvider,public popoverCtrl: PopoverController, private http: HttpClient) {
+
+  getStati(){
+    let url = this.auth.mainUrl+"/stati";
+    this.http.get<Status[]>(url,{params: {personId: this.auth.getUserInfo().personId}})
+      .subscribe(data=> {
+        this.stati = data;
+        this.loading.dismissAll();
+      });
+  }
+
+
+
+
+  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, private auth: AuthServiceProvider,public popoverCtrl: PopoverController, private http: HttpClient) {
     this.user = this.auth.getUserInfo();
-    this.getTermineZuPerson();
+    if(this.termine == null) this.getTermineZuPerson();
+    if(this.stati == null)this.getStati();
   }
 
   getTermineZuPerson() {
-    let url = "http://localhost:8080/terminevonperson";
-    let loading = this.loadingCtrl.create({
+    let url = this.auth.mainUrl+"/terminevonperson";
+    this.loading = this.loadingCtrl.create({
       content: 'Warten auf Termine.\n Bitte Kaffee holen..',
     });
-    loading.present();
+    this.loading.present();
     this.http.get<Termin[]>(url, {params: {personId: this.user.personId}})
       .subscribe((objekte) =>
       {this.termine = objekte ;
-        this.convertToDateObjects();
-      loading.dismiss();
+      this.convertToDateObjects();
       console.log(this.termine);
 
       });
@@ -47,14 +64,14 @@ export class TerminePage {
   }
 
   public logout() {
-    this.auth.logout().subscribe(succ => {
+    this.auth.logout().subscribe(() => {
       this.navCtrl.setRoot('LoginPage')
     });
   }
-  
+
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(TeilnehmerPage, {}, {cssClass: 'custom-popover'});
-    
+
     let ev = {
       target : {
         getBoundingClientRect : () => {
@@ -70,5 +87,38 @@ export class TerminePage {
     });
 
   }
+
+  getColor(termin:Termin,statusNummer:number): string {
+    if (this.stati != null) {
+    for (let status of this.stati) {
+      if (status.terminId == termin.terminId) {
+        if (status.statusId == statusNummer + "") {
+          return "primary";
+        }
+      }
+    }
+  }
+
+    return "dark";
+  }
+
+
+  buttonClicked(status:number, termin: Termin){
+    let url = this.auth.mainUrl+"/terminperson";
+    let loading = this.loadingCtrl.create({
+      content: 'Bitte Kaffee holen..',
+    });
+    loading.present();
+    this.http.post(url,null,{params:{personId: this.auth.getUserInfo().personId,terminId: termin.terminId,status:status+"",kommentar: "Test"}})
+      .subscribe(()=>{
+        loading.dismiss();
+        this.getStati();
+        }
+      );
+
+  }
+
+
+
 
 }
