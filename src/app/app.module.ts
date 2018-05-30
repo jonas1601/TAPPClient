@@ -8,6 +8,7 @@ import { GruppenPage } from '../pages/gruppen/gruppen';
 import { GruppenUebersichtPage } from '../pages/gruppen-uebersicht/gruppen-uebersicht';
 import { GruppeHinzufuegenPage } from '../pages/gruppe-hinzufuegen/gruppe-hinzufuegen';
 import { TerminErstellenPage } from '../pages/termin-erstellen/termin-erstellen';
+import { TeilnehmerPage } from '../pages/teilnehmer/teilnehmer';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -23,7 +24,8 @@ import {HttpClientModule} from "@angular/common/http";
     GruppenPage,
     GruppenUebersichtPage,
     GruppeHinzufuegenPage,
-    TerminErstellenPage
+    TerminErstellenPage,
+    TeilnehmerPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import {HttpClientModule} from "@angular/common/http";
     GruppenPage,
     GruppenUebersichtPage,
     GruppeHinzufuegenPage,
-    TerminErstellenPage
+    TerminErstellenPage,
+    TeilnehmerPage
   ],
   providers: [
     StatusBar,
