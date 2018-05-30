@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import {AuthServiceProvider} from '../../providers/auth-service/auth-service';
-import {HttpClient} from "@angular/common/http";
-import {User} from "../../entities/user";
-
+import { IonicPage, Loading, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, PopoverController } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { TeilnehmerPage } from '../teilnehmer/teilnehmer';
+import { HttpClient } from "@angular/common/http";
+import { User } from "../../entities/user";
 
 @IonicPage()
 @Component({
@@ -17,7 +17,7 @@ export class TerminePage {
   loading: Loading;
 
 
-  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private auth: AuthServiceProvider, private http: HttpClient) {
+  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private auth: AuthServiceProvider,public popoverCtrl: PopoverController, private http: HttpClient) {
     this.user = this.auth.getUserInfo();
     this.getTermineZuPerson();
   }
@@ -51,5 +51,24 @@ export class TerminePage {
       this.navCtrl.setRoot('LoginPage')
     });
   }
-}
+  
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(TeilnehmerPage, {}, {cssClass: 'custom-popover'});
+    
+    let ev = {
+      target : {
+        getBoundingClientRect : () => {
+          return {
+            top: '65'
+          };
+        }
+      }
+    };
 
+    popover.present({
+      ev
+    });
+
+  }
+
+}
