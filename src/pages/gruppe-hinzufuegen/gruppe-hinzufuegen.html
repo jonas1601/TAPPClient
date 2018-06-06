@@ -17,26 +17,16 @@
 
 
 <ion-content padding>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
   <ion-list>
+
 
     <ion-item>
       <ion-label stacked>Gruppenname</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input name="name" required type="text" ></ion-input>
     </ion-item>
 
-    <ion-item>
-        <ion-label stacked>Mitglieder hinzufügen</ion-label>
-      
-
-      </ion-item>
-
   </ion-list>
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-list radio group>
-      <ion-item *ngFor="let item of items">
-          <ion-label>{{item}}</ion-label>
-          <ion-checkbox value="python" ></ion-checkbox>
-      </ion-item>
-    </ion-list>
-  <button ion-button block (click)="openGruppenUebersichtPage()">Gruppe erstellen</button>
+  <button  ion-button class="submit-btn" type="submit" [disabled]="!form.form.valid">Login</button>
+  </form>
 </ion-content>

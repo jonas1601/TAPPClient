@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GruppenPage } from '../gruppen/gruppen';
+import {HttpClient} from "@angular/common/http";
+import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
+import {NgForm} from "@angular/forms";
+import {Gruppe} from "../../entities/gruppe";
 
 /**
  * Generated class for the GruppeHinzufuegenPage page.
@@ -16,44 +20,29 @@ import { GruppenPage } from '../gruppen/gruppen';
 })
 export class GruppeHinzufuegenPage {
 
-  searchQuery: string = '';
-  items: string[];
+  name:string = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.initializeItems();
+  constructor(public navCtrl: NavController, private http:HttpClient,private auth:AuthServiceProvider) {
   }
 
-  initializeItems() {
-    this.items = [
-      'Lukas',
-      'Jonas',
-      'Leonard',
-      'Yanik(evtl)',
-      'Marie'
-    ];
-  }
+  onSubmit(f:NgForm){
 
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    this.initializeItems();
+      let urlGruppe = this.auth.mainUrl + "/gruppe";
+      let urlHinzu = this.auth.mainUrl + "/gruppenmitglied";
+      this.http.post<Gruppe>(urlGruppe, null, {params: {name: f.name}})//TODO NAmen auslesen
+        .subscribe(gruppe => {
+          this.http.post<Gruppe>(urlHinzu, null, {
+            params:
+              {personId: this.auth.getUserInfo().personId, gruppenId: gruppe.gruppenId, rollenId: '2'}
+          })
+            .subscribe(() => this.openGruppenUebersichtPage());
+        })
 
-    // set val to the value of the searchbar
-    let val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GruppeHinzufuegenPage');
   }
 
   openGruppenUebersichtPage() {
 
     this.navCtrl.push(GruppenPage);
-    
+
   }
 }

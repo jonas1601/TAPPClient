@@ -10,5 +10,4 @@ export class Status{
     this.statusId = statusId;
     this.kommentar = kommentar;
   }
-
 }

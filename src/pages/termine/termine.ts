@@ -50,15 +50,15 @@ export class TerminePage {
       .subscribe((objekte) =>
       {this.termine = objekte ;
       this.convertToDateObjects();
-      console.log(this.termine);
-
       });
   }
 
 
   convertToDateObjects(){
     for(let termin of this.termine){
+      console.log(termin.anfang);
       termin.anfang = new Date(termin.anfang);
+      console.log(termin.anfang);
       termin.ende = new Date(termin.ende);
     }
   }
@@ -69,8 +69,8 @@ export class TerminePage {
     });
   }
 
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(TeilnehmerPage, {}, {cssClass: 'custom-popover'});
+  presentPopover(myEvent,terminId:Termin) {
+    let popover = this.popoverCtrl.create(TeilnehmerPage, {termin:terminId}, {cssClass: 'custom-popover'});
 
     let ev = {
       target : {
@@ -98,7 +98,6 @@ export class TerminePage {
       }
     }
   }
-
     return "dark";
   }
 
@@ -109,10 +108,17 @@ export class TerminePage {
       content: 'Bitte Kaffee holen..',
     });
     loading.present();
-    this.http.post(url,null,{params:{personId: this.auth.getUserInfo().personId,terminId: termin.terminId,status:status+"",kommentar: "Test"}})
-      .subscribe(()=>{
+    this.http.post<Status>(url,null,{params:{personId: this.auth.getUserInfo().personId,terminId: termin.terminId,status:status+"",kommentar: "Test"}})
+      .subscribe(data =>{
         loading.dismiss();
-        this.getStati();
+        let filteredArray = this.stati.filter((status:Status) => {
+          return !(data.terminId == status.terminId && data.personId == status.personId);
+          }
+        );
+        this.stati = filteredArray;
+        this.stati.push(data);
+
+
         }
       );
 

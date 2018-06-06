@@ -8,9 +8,9 @@
         Noch nicht zu-/ abgesagt:
     </h3>
     <ion-grid>
-        <ion-row>
-            <ion-col >
-                Person1
+        <ion-row *ngFor="let person of mitglieder">
+            <ion-col>
+              {{person.vorname}} {{person.nachname}}
             </ion-col>
             <ion-col>
                 <ion-icon name="time" item-start color="gainsboro"></ion-icon>
@@ -23,9 +23,9 @@
     </h3>
 
     <ion-grid>
-        <ion-row>
+        <ion-row *ngFor="let person of userAngenommen">
             <ion-col >
-                Person1
+                {{person.vorname}} {{person.nachname}}
             </ion-col>
             <ion-col>
                 <ion-icon name="thumbs-up" item-start color="green"></ion-icon>
@@ -37,9 +37,9 @@
         Unsicher:
     </h3>
     <ion-grid>
-            <ion-row>
+            <ion-row *ngFor="let person of userVielleicht">
                 <ion-col >
-                    Person1
+                  {{person.vorname}} {{person.nachname}}
                 </ion-col>
                 <ion-col>
                     <ion-icon name="help" item-start color="yellow"></ion-icon>
@@ -50,9 +50,9 @@
         Abgesagt:
     </h3>
     <ion-grid>
-            <ion-row>
+            <ion-row *ngFor="let person of userAbgelehnt">
                 <ion-col >
-                    Person1
+                  {{person.vorname}} {{person.nachname}}
                 </ion-col>
                 <ion-col>
                     <ion-icon name="thumbs-down" item-start color="red"></ion-icon>
