@@ -25,7 +25,7 @@ export class GruppenUebersichtPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.gruppe = navParams.data.gruppe;
-
+    this.gruppenName = this.gruppe.name;
   }
 
 
