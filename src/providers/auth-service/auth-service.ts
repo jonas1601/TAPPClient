@@ -8,6 +8,7 @@ import {User} from "../../entities/user";
 
 
 
+
 @Injectable()
 export class AuthServiceProvider {
   currentUser: User;
@@ -57,6 +58,9 @@ export class AuthServiceProvider {
   }
 
   public register(credentials) {
+
+
+
     credentials.password = sha256(credentials.password).toString();
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
