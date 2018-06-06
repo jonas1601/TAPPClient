@@ -15,16 +15,12 @@
 
 <ion-content padding>
 
-  <ion-item>
-    <ion-input placeholder = "Benutzername" type="text"  [(ngModel)]="registerCredentials.nutzerAk"></ion-input>
+<ion-searchbar (ionInput)="getItems($event)" ([ngModel])="test"></ion-searchbar>
+<ion-list radio group>
+    <ion-item *ngFor="let nutzer of nutzer">
+        <ion-label>{{nutzer.benutzername}}</ion-label>
+        <ion-checkbox (ionChange)="selectUser(nutzer)" ></ion-checkbox>
     </ion-item>
-    <ion-item>
-      <button ion-button block (click)="benutzer()">Benutzer suchen</button>
-    </ion-item>
-    <ion-list>
-      <button ion-item *ngFor="let nutzer of nutzer" >
-        {{ nutzer }}
-      </button>
-    </ion-list>
-
+  </ion-list>
+<button ion-button block (click)="openGruppenUebersichtPage()">Mitglieder hinzufügen</button>
 </ion-content>
