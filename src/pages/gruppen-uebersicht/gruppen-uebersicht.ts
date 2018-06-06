@@ -38,7 +38,7 @@ export class GruppenUebersichtPage {
   }
 
   openMitgliederHinzufuegenPage(){
-    this.navCtrl.push(MitgliederHinzufuegenPage,this.gruppenName);
+    this.navCtrl.push(MitgliederHinzufuegenPage,this.gruppe);
   }
   setGruppenName(name: string){
     this.gruppenName = name;

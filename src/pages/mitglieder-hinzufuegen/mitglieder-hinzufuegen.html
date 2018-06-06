@@ -19,7 +19,7 @@
 <ion-list radio group>
     <ion-item *ngFor="let nutzer of nutzer">
         <ion-label>{{nutzer.benutzername}}</ion-label>
-        <ion-checkbox value="python" ></ion-checkbox>
+        <ion-checkbox (ionChange)="selectUser(nutzer)" ></ion-checkbox>
     </ion-item>
   </ion-list>
 <button ion-button block (click)="openGruppenUebersichtPage()">Mitglieder hinzufügen</button>

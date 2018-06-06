@@ -4,6 +4,7 @@ import { GruppenPage } from '../gruppen/gruppen';
 import {HttpClient} from "@angular/common/http";
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {User} from "../../entities/user";
+import {Gruppe} from "../../entities/gruppe";
 
 /**
  * Generated class for the MitgliederHinzufuegenPage page.
@@ -18,16 +19,19 @@ import {User} from "../../entities/user";
   templateUrl: 'mitglieder-hinzufuegen.html',
 })
 export class MitgliederHinzufuegenPage {
-
-  gruppenName = "";
+  hinzufügenUrl:string = "http://ec2-34-219-150-87.us-west-2.compute.amazonaws.com:8080/gruppenmitglieder"
+  gruppe: Gruppe;
+  gruppenName: String;
   registerCredentials = {nutzerAk: ''};
   nutzer:User[];
   nutzer2: User[];
+  ausgewählteNutzer: User[] = []; 
   test:String="";
  
   
   constructor(public navCtrl: NavController, public navParams: NavParams,private loadingCtrl:LoadingController,private auth:AuthServiceProvider,private http:HttpClient) {
-    this.gruppenName = navParams.data;
+    this.gruppe = navParams.data;
+    this.gruppenName = this.gruppe.name;
     this.getMitglieder();
   }
 
@@ -43,8 +47,20 @@ export class MitgliederHinzufuegenPage {
 
   openGruppenUebersichtPage() {
 
-    this.navCtrl.push(GruppenPage);
-    
+    //Mitglieder hinzufügen
+    this.http.post(this.hinzufügenUrl, this.ausgewählteNutzer, {params:{gruppenId:this.gruppe.gruppenId, rollenId:'1'}})
+    .subscribe();
+
+    this.navCtrl.push(GruppenPage);    
+  }
+
+  selectUser(user:User){
+    if(this.ausgewählteNutzer.indexOf(user) > -1){
+      this.ausgewählteNutzer.splice(this.ausgewählteNutzer.indexOf(user), 1);
+    } else {
+      this.ausgewählteNutzer.push(user);
+    }
+    console.log(this.ausgewählteNutzer);
   }
 
   initalize(){
