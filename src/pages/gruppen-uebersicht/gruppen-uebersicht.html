@@ -26,15 +26,15 @@
     </ion-card-header>
     <ion-list>
         <button ion-item (click)="openTerminErstellenPage()">
-            <ion-icon name ="calendar" item-Start ></ion-icon>
+            <ion-icon name ="calendar" item-Start color = "primary"></ion-icon>
             Termin erstellen
           </button>
       <button ion-item (click)="openMitgliederPage()">
-        <ion-icon name ="people" item-Start></ion-icon>
+        <ion-icon name ="people" item-Start color = "primary"></ion-icon>
         Mitglieder anzeigen
       </button>
-      <button ion-item>
-          <ion-icon name ="person-add" item-Start></ion-icon>
+      <button ion-item (click)="openMitgliederHinzufuegenPage()">
+          <ion-icon name ="person-add" item-Start color = "primary"></ion-icon>
           Mitglieder hinzufügen
         </button>
     </ion-list>

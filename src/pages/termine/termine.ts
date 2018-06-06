@@ -16,7 +16,7 @@ export class TerminePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private auth: AuthServiceProvider) {
   let info = this.auth.getUserInfo();
-  this.username = info['username'];
+  //this.username = info['username'];
   }
 
   public logout() {

@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { MitgliederPage } from '../pages/mitglieder/mitglieder';
+import { MitgliederHinzufuegenPage } from '../pages/mitglieder-hinzufuegen/mitglieder-hinzufuegen';
 import { GruppenPage } from '../pages/gruppen/gruppen';
 import { GruppenUebersichtPage } from '../pages/gruppen-uebersicht/gruppen-uebersicht';
 import { GruppeHinzufuegenPage } from '../pages/gruppe-hinzufuegen/gruppe-hinzufuegen';
@@ -23,7 +24,8 @@ import {HttpClientModule} from "@angular/common/http";
     GruppenPage,
     GruppenUebersichtPage,
     GruppeHinzufuegenPage,
-    TerminErstellenPage
+    TerminErstellenPage,
+    MitgliederHinzufuegenPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import {HttpClientModule} from "@angular/common/http";
     GruppenPage,
     GruppenUebersichtPage,
     GruppeHinzufuegenPage,
-    TerminErstellenPage
+    TerminErstellenPage,
+    MitgliederHinzufuegenPage
   ],
   providers: [
     StatusBar,

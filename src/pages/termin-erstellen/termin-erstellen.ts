@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { GruppenPage } from '../gruppen/gruppen';
 
 /**
@@ -16,6 +16,7 @@ import { GruppenPage } from '../gruppen/gruppen';
 })
 export class TerminErstellenPage {
 
+  registerCredentials = { titel: '', beschreibung: '', anfangsDatum: '', endDatum: '', anfangsZeit: '', endZeit:'' };
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -24,6 +25,8 @@ export class TerminErstellenPage {
   }
 
   openGruppenPage(){
+    //Hier muss noch ein Termin erstellt werden
+    
     this.navCtrl.push(GruppenPage);
   }
 }
