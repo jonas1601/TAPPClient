@@ -1,0 +1,26 @@
+<!--
+  Generated template for the MitgliederHinzufuegenPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{gruppenName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-searchbar (ionInput)="getItems($event)" ([ngModel])="test"></ion-searchbar>
+<ion-list radio group>
+    <ion-item *ngFor="let nutzer of nutzer">
+        <ion-label>{{nutzer.benutzername}}</ion-label>
+        <ion-checkbox (ionChange)="selectUser(nutzer)" ></ion-checkbox>
+    </ion-item>
+  </ion-list>
+<button ion-button block (click)="openGruppenUebersichtPage()">Mitglieder hinzufügen</button>
+</ion-content>

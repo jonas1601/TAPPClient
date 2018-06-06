@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { GruppenPage } from '../gruppen/gruppen';
 import {HttpClient} from "@angular/common/http";
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
@@ -18,6 +18,8 @@ import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 })
 export class TerminErstellenPage {
 
+  registerCredentials = { titel: '', beschreibung: '', anfangsDatum: '', endDatum: '', anfangsZeit: '', endZeit:'' };
+ 
   termin = {
     titel: '',
     beschreibung: '',
@@ -28,7 +30,10 @@ export class TerminErstellenPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private http: HttpClient, private auth:AuthServiceProvider) {
   }
 
-
+  openGruppenPage(){
+    //Hier muss noch ein Termin erstellt werden
+    
+  }
 
 
   erstelleTermin(){
@@ -37,5 +42,3 @@ export class TerminErstellenPage {
     this.navCtrl.push(GruppenPage);
   }
 }
-
-

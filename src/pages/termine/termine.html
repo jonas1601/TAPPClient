@@ -28,21 +28,51 @@
   <ion-card *ngFor="let termin of termine">
     <ion-grid>
       <ion-row>
-
-          <ion-col >
+          
               <ion-card-title color = "primary" align="center" >
+                  <ion-col col-3 style="background-color:#ff8c2e; color:white; font-size:80%;">
+                      {{termin.anfang.toLocaleDateString("de",{day: "numeric",month: "long"})}}
+                    </ion-col>
+                    <ion-col col-7>
                   {{termin.titel}}
+                </ion-col>
                 </ion-card-title>
-            </ion-col>
+            
     </ion-row>
   </ion-grid>
     <ion-card-content>
-        {{termin.anfang.toLocaleDateString()}}
-        {{termin.anfang.toLocaleTimeString()}}
-         bis
-        {{termin.ende.toLocaleDateString()}}
-        {{termin.ende.toLocaleTimeString()}}
-        {{termin.beschreibung}}
+      <ion-grid>
+        <ion-row>
+            <ion-col style="align-content: center">
+              Beginn:
+            </ion-col>
+            <ion-col style="align-content: center">
+              Ende:
+           </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+        <ion-col>
+            <div style="font-size: 150%;">               
+                {{termin.anfang.toLocaleTimeString("de",{hour:"numeric",minute:"numeric"})}}
+            </div>
+        </ion-col>
+        <ion-col>
+            <div style="font-size: 150%;">
+              <div *ngIf="termin.ende.getDate()!=termin.anfang.getDate()">
+                {{termin.ende.toLocaleDateString()}}
+              </div>
+                {{termin.ende.toLocaleTimeString("de",{hour:"numeric",minute:"numeric"})}}
+            </div>
+        </ion-col>
+      </ion-row>
+      </ion-grid>
+      <div style="color:black">
+          {{termin.beschreibung}}
+      </div>
+
+        
     </ion-card-content>
 
     <ion-grid>

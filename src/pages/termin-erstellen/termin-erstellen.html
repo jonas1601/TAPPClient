@@ -18,21 +18,29 @@
   <ion-list>
        <ion-item>
         <ion-label>Titel</ion-label>
-        <ion-input [(ngModel)]="termin.titel" style="text-align: right;"type="text"></ion-input>
+        <ion-input style="text-align: right;"type="text" [(ngModel)]="registerCredentials.titel"></ion-input>
       </ion-item>
         <ion-item>
-            <ion-label>Beschreibung</ion-label>
-            <ion-input [(ngModel)]="termin.beschreibung" type="text"></ion-input>
+            <ion-label>Beschreibung </ion-label>
+            <ion-input type="text" [(ngModel)]="registerCredentials.beschreibung"></ion-input>
           </ion-item>
 
       <ion-item>
         <ion-label >Anfangs-Datum</ion-label>
-        <ion-datetime displayFormat="YYYY-MM-DDTHH:mmZ" [(ngModel)]="termin.anfang" ></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="registerCredentials.anfangsDatum" ></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End-Datum</ion-label>
-        <ion-datetime displayFormat="YYYY-MM-DDTHH:mmZ" [(ngModel)]="termin.ende" ></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="registerCredentials.endDatum" ></ion-datetime>
       </ion-item>
+      <ion-item>
+        <ion-label>Anfangs-Zeit</ion-label>
+        <ion-datetime displayFormat="h:mm A"[(ngModel)]="registerCredentials.anfangsZeit"  ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>End-Zeit</ion-label>
+        <ion-datetime displayFormat="h:mm A" [(ngModel)]="registerCredentials.endZeit" ></ion-datetime>
+      </ion-item>     
   </ion-list>
   <button ion-button block (click)="erstelleTermin()" >Termin erstellen</button>
 </ion-content>

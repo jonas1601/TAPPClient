@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TerminErstellenPage } from '../termin-erstellen/termin-erstellen';
 import { MitgliederPage } from '../mitglieder/mitglieder';
+import { MitgliederHinzufuegenPage } from '../mitglieder-hinzufuegen/mitglieder-hinzufuegen';
 import {Gruppe} from "../../entities/gruppe";
 
 /**
@@ -19,11 +20,12 @@ import {Gruppe} from "../../entities/gruppe";
 export class GruppenUebersichtPage {
 
   gruppe: Gruppe;
+  gruppenName: String;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.gruppe = navParams.data.gruppe;
-
+    this.gruppenName = this.gruppe.name;
   }
 
 
@@ -35,5 +37,10 @@ export class GruppenUebersichtPage {
     this.navCtrl.push(MitgliederPage,this.gruppe);
   }
 
-
+  openMitgliederHinzufuegenPage(){
+    this.navCtrl.push(MitgliederHinzufuegenPage,this.gruppe);
+  }
+  setGruppenName(name: string){
+    this.gruppenName = name;
+  }
 }
