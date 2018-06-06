@@ -4,28 +4,22 @@ import 'rxjs/add/operator/map';
 import {of} from "rxjs/observable/of";
 import {HttpClient} from "@angular/common/http";
 import sha256 from 'crypto-js/sha256';
+import {User} from "../../entities/user";
 
-export class User {
-  benutzername: string;
-  vorname: string;
-  nachname: string;
-  id: string;
 
-  constructor(benutzername: string, id: string,vorname: string,nachname:string) {
-    this.benutzername = benutzername;
-    this.id = id;
-    this.vorname = vorname;
-    this.nachname = nachname;
-  }
-}
+
 
 @Injectable()
 export class AuthServiceProvider {
   currentUser: User;
-  loginUrl :string = "http://localhost:8080/login";
-  registerUrl :string = "http://localhost:8080/register";
+  mainUrl: string = "http://ec2-34-219-150-87.us-west-2.compute.amazonaws.com:8080";
+  loginUrl :string = this.mainUrl+"/login";
+  registerUrl :string = this.mainUrl+"/register";
 
   constructor(public http: HttpClient){}
+
+
+
 
   public login(credentials) {
     credentials.password = sha256(credentials.password).toString();
@@ -64,6 +58,9 @@ export class AuthServiceProvider {
   }
 
   public register(credentials) {
+
+
+
     credentials.password = sha256(credentials.password).toString();
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");

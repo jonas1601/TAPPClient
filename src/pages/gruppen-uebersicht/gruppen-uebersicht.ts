@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TerminErstellenPage } from '../termin-erstellen/termin-erstellen';
 import { MitgliederPage } from '../mitglieder/mitglieder';
 import { MitgliederHinzufuegenPage } from '../mitglieder-hinzufuegen/mitglieder-hinzufuegen';
+import {Gruppe} from "../../entities/gruppe";
 
 /**
  * Generated class for the GruppenUebersichtPage page.
@@ -18,23 +19,22 @@ import { MitgliederHinzufuegenPage } from '../mitglieder-hinzufuegen/mitglieder-
 })
 export class GruppenUebersichtPage {
 
-  gruppenName = " ";
+  gruppe: Gruppe;
+  gruppenName: String;
 
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.gruppenName = navParams.data;
+    this.gruppe = navParams.data.gruppe;
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GruppenUebersichtPage');
-  }
 
   openTerminErstellenPage(){
-    this.navCtrl.push(TerminErstellenPage);
+    this.navCtrl.push(TerminErstellenPage,this.gruppe);
   }
 
   openMitgliederPage(){
-    this.navCtrl.push(MitgliederPage,this.gruppenName);
+    this.navCtrl.push(MitgliederPage,this.gruppe);
   }
 
   openMitgliederHinzufuegenPage(){

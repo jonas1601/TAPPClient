@@ -14,3 +14,9 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.custom-popover .popover-content {
+    width: 90%;
+    height: 80%;
+    background-color:rgb(214, 214, 214);
+  }

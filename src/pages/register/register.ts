@@ -13,7 +13,7 @@ import {TerminePage} from "../termine/termine";
 export class RegisterPage {
   createSuccess = false;
   loading: Loading;
-  registerCredentials = { benutzername: '', password: '',vorname:'',nachname:'' };
+  registerCredentials = { benutzername: '', password: '',vorname:'',nachname:'',notification_token: '' };
 
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,private loadingCtrl: LoadingController) { }
 

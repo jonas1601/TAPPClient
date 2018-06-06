@@ -24,7 +24,7 @@
             <ion-label>Beschreibung </ion-label>
             <ion-input type="text" [(ngModel)]="registerCredentials.beschreibung"></ion-input>
           </ion-item>
-      
+
       <ion-item>
         <ion-label >Anfangs-Datum</ion-label>
         <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="registerCredentials.anfangsDatum" ></ion-datetime>
@@ -42,5 +42,5 @@
         <ion-datetime displayFormat="h:mm A" [(ngModel)]="registerCredentials.endZeit" ></ion-datetime>
       </ion-item>     
   </ion-list>
-  <button ion-button block (click)="openGruppenPage()" >Termin erstellen</button>
+  <button ion-button block (click)="erstelleTermin()" >Termin erstellen</button>
 </ion-content>

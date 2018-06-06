@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import {IonicPage, LoadingController, NavParams} from 'ionic-angular';
+import {HttpClient} from "@angular/common/http";
+import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
+import {User} from "../../entities/user";
+import {Gruppe} from "../../entities/gruppe";
 
 /**
  * Generated class for the MitgliederPage page.
@@ -16,18 +19,33 @@ import { AlertController } from 'ionic-angular';
 })
 export class MitgliederPage {
 
-  radioOpen: boolean;
-  gruppenName = " ";
-  items = [
-      'Anna',
-      'Frank',
-      'Therese',
-      'Heinz'
-  ];
-  radioResult;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alerCtrl: AlertController,public navParams1: NavParams) {
-    this.gruppenName = navParams1.data;
+//radioOpen: boolean;
+  gruppe: Gruppe;
+  mitglieder: User[];
+  //radioResult;
+  constructor(private loadingCtrl:LoadingController,private auth:AuthServiceProvider,private navParams: NavParams,private http:HttpClient) {
+    this.gruppe = this.navParams.data;
+    this.getMitglieder();
   }
+
+  getMitglieder(){
+    let url = this.auth.mainUrl+"/mitglieder";
+    let loading = this.loadingCtrl.create({
+      content: 'Warten auf Mitglieder.\n Bitte Kaffee holen..',
+    });
+    loading.present();
+    this.http.get<User[]>(url, {params: {gruppenId: this.gruppe.gruppenId}})
+      .subscribe(data => {
+        this.mitglieder = data;
+        loading.dismiss();
+      },err => {
+        loading.dismiss();
+        alert("Fehler beim Laden"+err);
+      })
+  }
+
+
+
 /*
   doRadio() {
     let alert = this.alerCtrl.create();
@@ -68,9 +86,7 @@ export class MitgliederPage {
       this.radioOpen = true;
     });
   }*/
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MitgliederPage');
-  }
+
 
 
 }

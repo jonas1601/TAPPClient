@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, LoadingController, NavController} from 'ionic-angular';
 import { GruppenUebersichtPage } from '../gruppen-uebersicht/gruppen-uebersicht';
 import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen';
+import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
+import {HttpClient} from "@angular/common/http";
+import {Gruppe} from "../../entities/gruppe";
 
 /**
  * Generated class for the GruppenPage page.
@@ -17,33 +20,43 @@ import { GruppeHinzufuegenPage } from '../gruppe-hinzufuegen/gruppe-hinzufuegen'
 })
 export class GruppenPage {
 
-  gruppen = [
-    'Gruppe 1',
-    'Gruppe 2',
-    'Gruppe 3',
-    'Gruppe 4',
-    'Gruppe 5'
+  gruppen: Gruppe[];
 
-  ];
-
-  itemSelected(gruppe: string) {
-    console.log("Selected Item", gruppe);
-    this.openGruppenUebersichtPage(gruppe);
+  itemSelected(item: Gruppe) {
+    console.log("Selected Item", item);
+    this.openGruppenUebersichtPage(item);
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,private auth: AuthServiceProvider,private http:HttpClient, private loadingCtrl:LoadingController) {
+    this.getGruppenFromPersonId();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GruppenPage');
-  }
 
-  openGruppenUebersichtPage(gruppe:string) {
 
-    this.navCtrl.push(GruppenUebersichtPage,gruppe);
-    
+  openGruppenUebersichtPage(gruppe:Gruppe) {
+    let data = {gruppe: gruppe};
+    this.navCtrl.push(GruppenUebersichtPage,data);
+
   }
 
   openGruppeHinzufuegenPage() {
     this.navCtrl.push(GruppeHinzufuegenPage);
   }
+
+  getGruppenFromPersonId(){
+    let url = this.auth.mainUrl+"/gruppenbypersonid";
+    let loading = this.loadingCtrl.create({
+      content: 'Warten auf Gruppen.\n Bitte Kaffee holen..',
+    });
+    loading.present();
+    this.http.get<Gruppe[]>(url,{params:{personId: this.auth.getUserInfo().personId}})
+      .subscribe(data =>{
+        this.gruppen = data;
+        loading.dismiss();
+      },err => {
+        loading.dismiss();
+        alert("Fehler beim Laden"+err);
+      })
+  }
+
+
 }

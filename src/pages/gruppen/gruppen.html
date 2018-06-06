@@ -16,17 +16,17 @@
 
 
 <ion-content padding>
-  
-  
-   
+
+
+<!-- TODO SCHÖN MACHEN -->
     <ion-list inset>
-        <button ion-item *ngFor="let gruppe of gruppen" (click)="itemSelected(gruppe)">
-            {{ gruppe }}
+        <button  ion-button *ngFor="let gruppe of gruppen" (click)="itemSelected(gruppe)">
+            {{ gruppe.name }}
           </button>
-       
+
       </ion-list>
-      
+
       <button ion-button block (click)="openGruppeHinzufuegenPage()">Gruppe hinzufügen</button>
-    
-     
+
+
 </ion-content>

@@ -17,49 +17,59 @@
 
 
 <ion-content padding>
-  <ion-select [(ngModel)]="groups" multiple="false">
-   <!-- <ion-option *ngFor="let groups of person" [value]="employee"> -->
+ <!-- <ion-select [(ngModel)]="groups" multiple="false">
+   <!-- <ion-option *ngFor="let groups of person" [value]="employee">
       <ion-option selected="true">Gruppe 1</ion-option>
       <ion-option>Gruppe 2</ion-option>
-  </ion-select>
+  </ion-select>-->
 
 
-  
 
-  <ion-card>
+  <ion-card *ngFor="let termin of termine">
     <ion-grid>
       <ion-row>
-         
+
           <ion-col >
               <ion-card-title color = "primary" align="center" >
-                  {{terminTitel}}
+                  {{termin.titel}}
                 </ion-card-title>
             </ion-col>
     </ion-row>
   </ion-grid>
     <ion-card-content>
-        {{terminBeschreibung}}
+        {{termin.anfang.toLocaleDateString()}}
+        {{termin.anfang.toLocaleTimeString()}}
+         bis
+        {{termin.ende.toLocaleDateString()}}
+        {{termin.ende.toLocaleTimeString()}}
+        {{termin.beschreibung}}
     </ion-card-content>
 
     <ion-grid>
         <ion-row align-items-center>
-          <ion-col col-3></ion-col>
+          <ion-col col-2></ion-col>
           <ion-col col-2 align-items-center>
-            <ion-item>
-              <ion-icon name="thumbs-up" item-start color="primary"></ion-icon>
-            </ion-item>
+            <button ion-button color="light">
+              <ion-icon name="thumbs-up" item-start [color]="getColor(termin,0)" (click)="buttonClicked(0,termin)"></ion-icon>
+            </button>
           </ion-col>
           <ion-col col-2>
-           <ion-item>
-            <ion-icon name="help-circle" item-start ></ion-icon>
-              </ion-item>
+            <button ion-button color="light" >
+            <ion-icon name="help-circle" item-start [color]="getColor(termin,2)" (click)="buttonClicked(2,termin)"></ion-icon>
+            </button>
               </ion-col>
               <ion-col col-2>
-                  <ion-item>
-                     <ion-icon name="thumbs-down"  item-start></ion-icon>
-                  </ion-item>
+                <button ion-button color="light" >
+                     <ion-icon name="thumbs-down"  [color]="getColor(termin,1)" item-start (click)="buttonClicked(1,termin)"></ion-icon>
+                </button>
                 </ion-col>
-                <ion-col col-3></ion-col>
+                <ion-col col-2></ion-col>
+                <ion-col col-2>
+                  <ion-item>
+                    <ion-icon name="information-circle" icon-only item-start (click)="presentPopover($event)"></ion-icon>
+                 </ion-item>
+                </ion-col>
+
       </ion-row>
     </ion-grid>
 
