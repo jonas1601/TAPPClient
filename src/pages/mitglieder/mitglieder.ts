@@ -44,7 +44,21 @@ export class MitgliederPage {
       })
   }
 
+  removeMitglied() {
+    let url = this.auth.mainUrl+"/gruppenmitglied";
+    let loading = this.loadingCtrl.create({
+      content: 'Wird gelöscht.\n Bitte Kaffee holen..',
+    });
+    loading.present();
+    this.http.delete(url, {params: {gruppenId: this.gruppe.gruppenId, personId: this.auth.getUserInfo().personId}})
+      .subscribe(data => {
 
+        loading.dismiss();
+      },err => {
+        loading.dismiss();
+
+      });
+  }
 
 /*
   doRadio() {

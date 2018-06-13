@@ -21,6 +21,7 @@
 
       <ion-item *ngFor="let mitglied of mitglieder">
           {{ mitglied.vorname}} {{mitglied.nachname }}
+        <ion-icon name="remove" item-right (click)="removeMitglied()"></ion-icon>
       </ion-item>
 
 

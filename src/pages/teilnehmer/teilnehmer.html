@@ -2,25 +2,30 @@
 </ion-header>
 
 <ion-content padding>
-    <h1> Teilnehmer dieses Termins </h1>
-
-    <h3 style="background-color:gainsboro;">
+    <ion-icon name="close-circle" icon-only item-start (click)="viewCtrl.dismiss();" style="float:right;font-size:150%;"></ion-icon>
+    <br>
+    <h3> Teilnehmer dieses Termins </h3>
+    <hr>
+    <h4 style="background-color:gainsboro;">
         Noch nicht zu-/ abgesagt:
-    </h3>
+    </h4>
     <ion-grid>
         <ion-row *ngFor="let person of mitglieder">
             <ion-col>
               {{person.vorname}} {{person.nachname}}
             </ion-col>
             <ion-col>
-                <ion-icon name="time" item-start color="gainsboro"></ion-icon>
+                <ion-icon name="time" item-start color="gainsboro" style="font-size:130%"></ion-icon>
             </ion-col>
+        </ion-row>
+        <ion-row *ngIf="this.mitglieder==null" style="font-style:italic;">
+            keine
         </ion-row>
     </ion-grid>
 
-    <h3 style="color:white;background-color:grey;">
+    <h4 style="color:white;background-color:grey;">
         Zugesagt:
-    </h3>
+    </h4>
 
     <ion-grid>
         <ion-row *ngFor="let person of userAngenommen">
@@ -28,35 +33,44 @@
                 {{person.vorname}} {{person.nachname}}
             </ion-col>
             <ion-col>
-                <ion-icon name="thumbs-up" item-start color="green"></ion-icon>
+                <ion-icon name="thumbs-up" item-start color="green" style="font-size:130%"></ion-icon>
             </ion-col>
+        </ion-row>
+        <ion-row *ngIf="this.userAngenommen.length==0" style="font-style:italic;">
+            keine
         </ion-row>
     </ion-grid>
 
-    <h3 style="color:white;background-color:grey;">
+    <h4 style="color:white;background-color:grey;">
         Unsicher:
-    </h3>
+    </h4>
     <ion-grid>
             <ion-row *ngFor="let person of userVielleicht">
                 <ion-col >
                   {{person.vorname}} {{person.nachname}}
                 </ion-col>
                 <ion-col>
-                    <ion-icon name="help" item-start color="yellow"></ion-icon>
+                    <ion-icon name="help" item-start color="orange" style="font-size:130%"></ion-icon>
                 </ion-col>
             </ion-row>
+            <ion-row *ngIf="this.userVielleicht.length==0" style="font-style:italic;">
+                keine
+            </ion-row>
         </ion-grid>
-    <h3 style="color:white;background-color:grey;">
+    <h4 style="color:white;background-color:grey;">
         Abgesagt:
-    </h3>
+    </h4>
     <ion-grid>
             <ion-row *ngFor="let person of userAbgelehnt">
                 <ion-col >
                   {{person.vorname}} {{person.nachname}}
                 </ion-col>
                 <ion-col>
-                    <ion-icon name="thumbs-down" item-start color="red"></ion-icon>
+                    <ion-icon name="thumbs-down" item-start color="red" style="font-size:130%"></ion-icon>
                 </ion-col>
+            </ion-row>
+            <ion-row *ngIf="this.userAbgelehnt.length==0" style="font-style:italic;">
+                keine
             </ion-row>
         </ion-grid>
 </ion-content>
