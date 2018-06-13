@@ -28,6 +28,45 @@ export class TerminErstellenPage {
   }
 
 
+  error:any={isError:false,errorMessage:''};
+
+  compareTwoDates(){
+    let anfangsDatum = this.getAnfangsDAtum();
+    let endDatum = this.getEndeDatum();
+    if(anfangsDatum != undefined && endDatum != undefined){
+
+    if(endDatum<anfangsDatum){
+      this.error={isError:true,errorMessage:'End Date can´t before start date'};
+      }else{
+      this.error = {isError:false,errorMessage:''};
+    }
+    }
+
+  }
+
+    getAnfangsDAtum():Date{
+      let anfangsDatum = Date.parse(this.termin.anfangsDatum);
+      let anfangsZeit = Date.parse('01 Jan 1970 ' +this.termin.anfangsZeit+':00 GMT');
+      if(!this.ganztaegig) {
+        return new Date(anfangsDatum + anfangsZeit);
+      }else {
+        return new Date(anfangsDatum);
+      }
+    }
+
+    getEndeDatum():Date{
+      let endDatum = Date.parse(this.termin.endDatum);
+      let endZeit = Date.parse('01 Jan 1970 ' +this.termin.endZeit+':00 GMT');
+
+      if(!this.ganztaegig) {
+        return new Date(endDatum + endZeit);
+      }else {
+        return new Date(endDatum);
+      }
+  }
+
+
+
 
   onSubmit(f:NgForm){
     let url = this.auth.mainUrl+"/termin";
@@ -35,22 +74,9 @@ export class TerminErstellenPage {
       content: 'Gruppe wird erstellt!\n Bitte Kaffee holen..',
     });
     loading.present();
-    let anfangsDatum = Date.parse(this.termin.anfangsDatum);
-    let anfangsZeit = Date.parse('01 Jan 1970 ' +this.termin.anfangsZeit+':00 GMT');
-    let endDatum = Date.parse(this.termin.endDatum);
-    let endZeit = Date.parse('01 Jan 1970 ' +this.termin.endZeit+':00 GMT');
 
-    let anfangsTimestamp;
-    let endeTimestamp;
-    if(!this.ganztaegig) {
-      anfangsTimestamp = new Date(anfangsDatum + anfangsZeit);
-      endeTimestamp = new Date(endDatum + endZeit);
-    }else{
-      anfangsTimestamp = new Date(anfangsDatum);
-      endeTimestamp = new Date(endDatum);
-    }
 
-    let termin = {titel:this.termin.titel,beschreibung: this.termin.beschreibung,anfang:anfangsTimestamp,ende:endeTimestamp,ganztaegig:this.ganztaegig ? 1 : 0};
+    let termin = {titel:this.termin.titel,beschreibung: this.termin.beschreibung,anfang:this.getAnfangsDAtum(),ende:this.getEndeDatum(),ganztaegig:this.ganztaegig ? 1 : 0};
     this.http.post(url,termin,{params:{gruppenId:this.navParams.data.gruppenId}}).subscribe(
       ()=> {
         this.navCtrl.setRoot(GruppenPage);

@@ -28,11 +28,11 @@
 
       <ion-item>
         <ion-label >Anfangs-Datum</ion-label>
-        <ion-datetime required displayFormat="DD.MMM.YYYY" name="anfangsDatum" [min]="minDatum" max="2099-12-31" cancelText="Abbrechen"   [(ngModel)]="termin.anfangsDatum"></ion-datetime>
+        <ion-datetime required displayFormat="DD.MMM.YYYY"  (ionBlur)="compareTwoDates()" name="anfangsDatum" [min]="minDatum" max="2099-12-31" cancelText="Abbrechen"   [(ngModel)]="termin.anfangsDatum"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End-Datum</ion-label>
-        <ion-datetime required displayFormat="DD.MMM.YYYY" max="2099-12-31" [min]="minDatum" name="endeDatum" cancelText="Abbrechen"  [(ngModel)]="termin.endDatum"></ion-datetime>
+        <ion-datetime required displayFormat="DD.MMM.YYYY"  (ionBlur)="compareTwoDates()" max="2099-12-31" [min]="minDatum" name="endeDatum" cancelText="Abbrechen"  [(ngModel)]="termin.endDatum"></ion-datetime>
       </ion-item>
     <ion-item>
       <ion-label>Ganztägig</ion-label>
@@ -40,13 +40,13 @@
     </ion-item >
       <ion-item *ngIf="!ganztaegig">
         <ion-label>Anfangs-Zeit</ion-label>
-        <ion-datetime required  displayFormat="HH:mm" name="anfangsZeit" cancelText="Abbrechen"    [(ngModel)]="termin.anfangsZeit"  ></ion-datetime>
+        <ion-datetime required  displayFormat="HH:mm"  (ionBlur)="compareTwoDates()" name="anfangsZeit" cancelText="Abbrechen"    [(ngModel)]="termin.anfangsZeit"  ></ion-datetime>
       </ion-item>
       <ion-item *ngIf="!ganztaegig">
         <ion-label>End-Zeit</ion-label>
-        <ion-datetime required displayFormat="HH:mm" name="endeZeit" cancelText="Abbrechen"   [(ngModel)]="termin.endZeit" ></ion-datetime>
+        <ion-datetime required displayFormat="HH:mm"  (ionBlur)="compareTwoDates()" name="endeZeit" cancelText="Abbrechen"   [(ngModel)]="termin.endZeit" ></ion-datetime>
       </ion-item>
   </ion-list>
-  <button ion-button block [disabled]="!form.form.valid"  >Termin erstellen</button>
+  <button ion-button block [disabled]="!form.form.valid || error.isError"  >Termin erstellen</button>
   </form>
 </ion-content>
