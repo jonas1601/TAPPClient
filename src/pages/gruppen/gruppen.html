@@ -19,14 +19,16 @@
 
 
 <!-- TODO SCHÖN MACHEN -->
-    <ion-list inset>
-        <button  ion-button *ngFor="let gruppe of gruppen" (click)="itemSelected(gruppe)">
+    
+
+     
+
+        <ion-list *ngFor="let gruppe of gruppen">
+          <button  ion-button  (click)="itemSelected(gruppe)">
             {{ gruppe.name }}
           </button>
-
-      </ion-list>
-
-      <button ion-button block (click)="openGruppeHinzufuegenPage()">Gruppe hinzufügen</button>
+        </ion-list>
+              <button ion-button block (click)="openGruppeHinzufuegenPage()">Gruppe hinzufügen</button>
 
 
 </ion-content>
