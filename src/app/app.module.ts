@@ -32,10 +32,10 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {
-      monthNames: ['janeiro', 'fevereiro', 'mar\u00e7o','dezember'],
-      monthShortNames: ['jan', 'fev', 'mar'],
-      dayNames: ['domingo', 'segunda-feira', 'ter\u00e7a-feira',],
-      dayShortNames: ['dom', 'seg', 'ter'],
+      monthNames: ['Januar', 'Februar', 'März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+      monthShortNames: ['Jan', 'Feb', 'Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
+      dayNames: ['Montag', 'Dienstag', 'Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'],
+      dayShortNames: ['Mon', 'Die', 'Mit','Don','Fre','Sam','Son'],
     }),
     HttpClientModule
   ],
@@ -48,7 +48,8 @@ import {HttpClientModule} from "@angular/common/http";
     GruppenUebersichtPage,
     GruppeHinzufuegenPage,
     TerminErstellenPage,
-    MitgliederHinzufuegenPage
+    MitgliederHinzufuegenPage,
+    TeilnehmerPage
   ],
   providers: [
     StatusBar,

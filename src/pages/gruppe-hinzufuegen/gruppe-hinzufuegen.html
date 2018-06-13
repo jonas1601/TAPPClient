@@ -23,10 +23,10 @@
 
     <ion-item>
       <ion-label stacked>Gruppenname</ion-label>
-      <ion-input name="name" required type="text" ></ion-input>
+      <ion-input name="name" [(ngModel)]="gruppenname" required type="text" ></ion-input>
     </ion-item>
 
   </ion-list>
-  <button  ion-button class="submit-btn" type="submit" [disabled]="!form.form.valid">Login</button>
+  <button full  ion-button class="submit-btn" type="submit" [disabled]="!form.form.valid">Gruppe hinzufügen</button>
   </form>
 </ion-content>

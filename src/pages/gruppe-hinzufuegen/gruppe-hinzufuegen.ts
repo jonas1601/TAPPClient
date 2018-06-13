@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, LoadingController, NavController} from 'ionic-angular';
 import { GruppenPage } from '../gruppen/gruppen';
 import {HttpClient} from "@angular/common/http";
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
@@ -20,22 +20,29 @@ import {Gruppe} from "../../entities/gruppe";
 })
 export class GruppeHinzufuegenPage {
 
-  name:string = '';
+  gruppenname:string = '';
 
-  constructor(public navCtrl: NavController, private http:HttpClient,private auth:AuthServiceProvider) {
+  constructor(public navCtrl: NavController, private http:HttpClient,private auth:AuthServiceProvider,private loadingCtrl: LoadingController) {
   }
 
   onSubmit(f:NgForm){
 
       let urlGruppe = this.auth.mainUrl + "/gruppe";
       let urlHinzu = this.auth.mainUrl + "/gruppenmitglied";
-      this.http.post<Gruppe>(urlGruppe, null, {params: {name: f.name}})//TODO NAmen auslesen
+    let loading = this.loadingCtrl.create({
+      content: 'Gruppe wird erstellt!\n Bitte Kaffee holen..',
+    });
+    loading.present();
+      this.http.post<Gruppe>(urlGruppe, null, {params: {name: this.gruppenname}})
         .subscribe(gruppe => {
           this.http.post<Gruppe>(urlHinzu, null, {
             params:
               {personId: this.auth.getUserInfo().personId, gruppenId: gruppe.gruppenId, rollenId: '2'}
           })
-            .subscribe(() => this.openGruppenUebersichtPage());
+            .subscribe(() => {
+              this.openGruppenUebersichtPage();
+              loading.dismiss();
+            });
         })
 
   }

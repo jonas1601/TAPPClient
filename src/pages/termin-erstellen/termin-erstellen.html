@@ -15,32 +15,38 @@
 </ion-header>
 
 <ion-content padding>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
   <ion-list>
        <ion-item>
         <ion-label>Titel</ion-label>
-        <ion-input style="text-align: right;"type="text" [(ngModel)]="registerCredentials.titel"></ion-input>
+        <ion-input required style="text-align: right;" name="titel" type="text" [(ngModel)]="termin.titel"></ion-input>
       </ion-item>
         <ion-item>
             <ion-label>Beschreibung </ion-label>
-            <ion-input type="text" [(ngModel)]="registerCredentials.beschreibung"></ion-input>
+            <ion-input required type="text" name="beschreibung" [(ngModel)]="termin.beschreibung"></ion-input>
           </ion-item>
 
       <ion-item>
         <ion-label >Anfangs-Datum</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="registerCredentials.anfangsDatum" ></ion-datetime>
+        <ion-datetime required displayFormat="DD.MMM.YYYY" name="anfangsDatum" [min]="minDatum" max="2099-12-31" cancelText="Abbrechen"   [(ngModel)]="termin.anfangsDatum"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End-Datum</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="registerCredentials.endDatum" ></ion-datetime>
+        <ion-datetime required displayFormat="DD.MMM.YYYY" max="2099-12-31" [min]="minDatum" name="endeDatum" cancelText="Abbrechen"  [(ngModel)]="termin.endDatum"></ion-datetime>
       </ion-item>
-      <ion-item>
+    <ion-item>
+      <ion-label>Ganztägig</ion-label>
+      <ion-checkbox [ngModelOptions]="{standalone:true}" [(ngModel)]="ganztaegig"></ion-checkbox>
+    </ion-item >
+      <ion-item *ngIf="!ganztaegig">
         <ion-label>Anfangs-Zeit</ion-label>
-        <ion-datetime displayFormat="h:mm A"[(ngModel)]="registerCredentials.anfangsZeit"  ></ion-datetime>
+        <ion-datetime required  displayFormat="HH:mm" name="anfangsZeit" cancelText="Abbrechen"    [(ngModel)]="termin.anfangsZeit"  ></ion-datetime>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="!ganztaegig">
         <ion-label>End-Zeit</ion-label>
-        <ion-datetime displayFormat="h:mm A" [(ngModel)]="registerCredentials.endZeit" ></ion-datetime>
-      </ion-item>     
+        <ion-datetime required displayFormat="HH:mm" name="endeZeit" cancelText="Abbrechen"   [(ngModel)]="termin.endZeit" ></ion-datetime>
+      </ion-item>
   </ion-list>
-  <button ion-button block (click)="erstelleTermin()" >Termin erstellen</button>
+  <button ion-button block [disabled]="!form.form.valid"  >Termin erstellen</button>
+  </form>
 </ion-content>
