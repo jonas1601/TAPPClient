@@ -48,7 +48,8 @@ import {HttpClientModule} from "@angular/common/http";
     GruppenUebersichtPage,
     GruppeHinzufuegenPage,
     TerminErstellenPage,
-    MitgliederHinzufuegenPage
+    MitgliederHinzufuegenPage,
+    TeilnehmerPage
   ],
   providers: [
     StatusBar,
