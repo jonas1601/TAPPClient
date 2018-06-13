@@ -28,11 +28,11 @@
 
       <ion-item>
         <ion-label >Anfangs-Datum</ion-label>
-        <ion-datetime required displayFormat="DD.MMM.YYYY"  (ionBlur)="compareTwoDates()" name="anfangsDatum" [min]="minDatum" max="2099-12-31" cancelText="Abbrechen"   [(ngModel)]="termin.anfangsDatum"></ion-datetime>
+        <ion-datetime required displayFormat="DDDD DD.MMM.YYYY"  (ionBlur)="compareTwoDates()" name="anfangsDatum" [min]="minDatum" max="2099-12-31" cancelText="Abbrechen"   [(ngModel)]="termin.anfangsDatum"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End-Datum</ion-label>
-        <ion-datetime required displayFormat="DD.MMM.YYYY"  (ionBlur)="compareTwoDates()" max="2099-12-31" [min]="minDatum" name="endeDatum" cancelText="Abbrechen"  [(ngModel)]="termin.endDatum"></ion-datetime>
+        <ion-datetime required displayFormat="DDDD DD.MMM.YYYY"  (ionBlur)="compareTwoDates()" max="2099-12-31" [min]="minDatum" name="endeDatum" cancelText="Abbrechen"  [(ngModel)]="termin.endDatum"></ion-datetime>
       </ion-item>
     <ion-item>
       <ion-label>Ganztägig</ion-label>
