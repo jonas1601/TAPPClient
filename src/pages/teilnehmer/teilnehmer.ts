@@ -23,7 +23,7 @@ export class TeilnehmerPage {
 
   constructor(public viewCtrl: ViewController, private auth: AuthServiceProvider, private http: HttpClient, private loadingCtrl: LoadingController) {
     this.termin = this.viewCtrl.data.termin;
-
+    this.mitglieder = null;
     let loading = this.loadingCtrl.create({
       content: 'Warten auf Teilnehmer.\n Bitte Kaffee holen..',
     });
