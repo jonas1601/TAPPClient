@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { GruppenPage } from '../gruppen/gruppen';
+import { GruppenUebersichtPage } from '../gruppen-uebersicht/gruppen-uebersicht';
 import {HttpClient} from "@angular/common/http";
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {User} from "../../entities/user";
@@ -48,10 +49,12 @@ export class MitgliederHinzufuegenPage {
   openGruppenUebersichtPage() {
 
     //Mitglieder hinzufügen
+    
     this.http.post(this.hinzufügenUrl, this.ausgewählteNutzer, {params:{gruppenId:this.gruppe.gruppenId, rollenId:'1'}})
-    .subscribe();
-
-    this.navCtrl.push(GruppenPage);    
+    .subscribe(()=>{
+      let data = {gruppe: this.gruppe};
+      this.navCtrl.push(GruppenUebersichtPage,data);});
+     
   }
 
   selectUser(user:User){
