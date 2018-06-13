@@ -74,7 +74,7 @@ export class TerminePage {
       target: {
         getBoundingClientRect: () => {
           return {
-            top: '65'
+            
           };
         }
       }
