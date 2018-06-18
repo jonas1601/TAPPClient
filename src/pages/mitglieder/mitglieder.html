@@ -20,8 +20,8 @@
     <ion-item-group>
 
       <ion-item *ngFor="let mitglied of mitglieder">
-          {{ mitglied.vorname}} {{mitglied.nachname }}
-        <ion-icon name="remove" item-right (click)="removeMitglied()"></ion-icon>
+          {{ mitglied.vorname}} {{mitglied.nachname }} ({{mitglied.benutzername}})
+        <ion-icon *ngIf="mitglied.personId != this.auth.getUserInfo().personId" name="remove" item-right (click)="presentConfirm(mitglied)"></ion-icon>
       </ion-item>
 
 

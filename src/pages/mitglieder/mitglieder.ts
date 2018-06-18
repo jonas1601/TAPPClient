@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, LoadingController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {AuthServiceProvider} from "../../providers/auth-service/auth-service";
 import {User} from "../../entities/user";
@@ -22,14 +22,15 @@ export class MitgliederPage {
 //radioOpen: boolean;
   gruppe: Gruppe;
   mitglieder: User[];
+
   //radioResult;
-  constructor(private loadingCtrl:LoadingController,private auth:AuthServiceProvider,private navParams: NavParams,private http:HttpClient) {
+  constructor(private loadingCtrl: LoadingController, private auth: AuthServiceProvider, private navParams: NavParams, private http: HttpClient, private alertCtrl: AlertController) {
     this.gruppe = this.navParams.data;
     this.getMitglieder();
   }
 
-  getMitglieder(){
-    let url = this.auth.mainUrl+"/mitglieder";
+  getMitglieder() {
+    let url = this.auth.mainUrl + "/mitglieder";
     let loading = this.loadingCtrl.create({
       content: 'Warten auf Mitglieder.\n Bitte Kaffee holen..',
     });
@@ -38,69 +39,59 @@ export class MitgliederPage {
       .subscribe(data => {
         this.mitglieder = data;
         loading.dismiss();
-      },err => {
+      }, () => {
         loading.dismiss();
-        alert("Fehler beim Laden"+err);
+        this.showError("Fehler beim Laden der MItglieder");
       })
   }
 
-  removeMitglied() {
-    let url = this.auth.mainUrl+"/gruppenmitglied";
+  removeMitglied(personId: string) {
+    let url = this.auth.mainUrl + "/gruppenmitglied";
     let loading = this.loadingCtrl.create({
       content: 'Wird gelöscht.\n Bitte Kaffee holen..',
     });
     loading.present();
-    this.http.delete(url, {params: {gruppenId: this.gruppe.gruppenId, personId: this.auth.getUserInfo().personId}})
-      .subscribe(data => {
-
+    this.http.delete(url, {params: {gruppenId: this.gruppe.gruppenId, personId: personId}})
+      .subscribe(() => {
+        this.mitglieder = this.mitglieder.filter(mitglied => mitglied.personId != personId);
         loading.dismiss();
-      },err => {
+      }, () => {
         loading.dismiss();
+        this.showError('Fehler beim Löschen des Gruppenmitgliedes')
 
       });
   }
 
-/*
-  doRadio() {
-    let alert = this.alerCtrl.create();
-    alert.setTitle('Gruppe wählen');
+  showError(text) {
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Gruppe 1',
-      value: 'gruppe1',
-      checked: true
+    let alert = this.alertCtrl.create({
+      title: 'Fehler',
+      subTitle: text,
+      buttons: ['OK']
     });
-    alert.addInput({
-      type: 'radio',
-      label: 'Gruppe 2',
-      value: 'gruppe2',
-      checked: false
+    alert.present();
+  }
+
+  presentConfirm(person: User) {
+    let alert = this.alertCtrl.create({
+      title: 'Löschen?',
+      message: 'Willst du '+person.benutzername+' wirklich aus der Gruppe entfernen?',
+      buttons: [
+        {
+          text: 'Nein',
+          role: 'nein',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Ja',
+          handler: () => {
+            this.removeMitglied(person.personId);
+          }
+        }
+      ]
     });
-    alert.addInput({
-      type: 'radio',
-      label: 'Gruppe 3',
-      value: 'gruppe3',
-      checked: false
-    });
-
-
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'Ok',
-      handler: data => {
-        console.log('Radio data:', data);
-        this.radioOpen = false;
-        this.radioResult = data;
-      }
-    });
-
-    alert.present().then(() => {
-      this.radioOpen = true;
-    });
-  }*/
-
-
-
+    alert.present();
+  }
 }
