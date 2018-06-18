@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../../entities/user";
 import {Termin} from "../../entities/termin";
 import {Status} from "../../entities/status";
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,7 @@ export class TerminePage {
   }
 
 
-  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, private auth: AuthServiceProvider, public popoverCtrl: PopoverController, private http: HttpClient) {
+  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, private auth: AuthServiceProvider, public popoverCtrl: PopoverController, private http: HttpClient,private alertCtrl: AlertController) {
     this.user = this.auth.getUserInfo();
     if (this.termine == null) this.getTermineZuPerson();
     if (this.stati == null) this.getStati();
@@ -130,6 +131,8 @@ export class TerminePage {
   }
 
   deleteTermin(termin: Termin) {
+
+    
     let url = this.auth.mainUrl + "/termin";
     let loading = this.loadingCtrl.create({
       content: 'Termin wird gelöscht\nBitte Kaffee holen..',
@@ -144,4 +147,32 @@ export class TerminePage {
       );
 
   }
+
+delete(termin:Termin){
+  this.presentConfirm(termin);
+}
+  
+presentConfirm(termin: Termin) {
+  let alert = this.alertCtrl.create({
+    title: 'Termin löschen',
+    message: 'Möchten Sie den Termin wirklich löschen?',
+    buttons: [
+      {
+        text: 'Abbrechen',
+        role: 'cancel',
+        handler: () => {
+          
+        }
+      },
+      {
+        text: 'Löschen',
+        handler: () => {
+          this.deleteTermin(termin);
+        }
+      }
+    ]
+  });
+  alert.present();
+}
+
 }
