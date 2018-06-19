@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {of} from "rxjs/observable/of";
@@ -7,18 +7,16 @@ import sha256 from 'crypto-js/sha256';
 import {User} from "../../entities/user";
 
 
-
-
 @Injectable()
 export class AuthServiceProvider {
   currentUser: User;
-  mainUrl: string = "http://ec2-34-219-150-87.us-west-2.compute.amazonaws.com:8080";
-  loginUrl :string = this.mainUrl+"/login";
-  registerUrl :string = this.mainUrl+"/register";
+  //mainUrl: string = "http://ec2-34-219-150-87.us-west-2.compute.amazonaws.com:8080";
+  mainUrl: string = "http://localhost:8080";
+  loginUrl: string = this.mainUrl + "/login";
+  registerUrl: string = this.mainUrl + "/register";
 
-  constructor(public http: HttpClient){}
-
-
+  constructor(public http: HttpClient) {
+  }
 
 
   public login(credentials) {
@@ -29,28 +27,26 @@ export class AuthServiceProvider {
       return Observable.create(observer => {
         // At this point make a request to your backend to make a real check!
         let access = true;
-        this.http.post<User>(this.loginUrl,credentials)
-         .subscribe(user => {
-           if (user != null) {
-           this.currentUser = user;
-           access = true;
-         }else{
-            access = false;
-          }
-             observer.next(access);
-             observer.complete();
-             },
-           () => {
-             this.handleError<User>("login");
+        this.http.post<User>(this.loginUrl, credentials)
+          .subscribe(user => {
+              if (user != null) {
+                this.currentUser = user;
+                access = true;
+              } else {
+                access = false;
+              }
+              observer.next(access);
+              observer.complete();
+            },
+            () => {
+              this.handleError<User>("login");
               access = false;
-             observer.next(access);
-             observer.complete();
-           })
+              observer.next(access);
+              observer.complete();
+            })
 
 
-
-
-       // let access = (credentials.password === "pass" && credentials.email === "email");
+        // let access = (credentials.password === "pass" && credentials.email === "email");
         //this.currentUser = new User('Simon', 'saimon@devdactic.com');
 
       });
@@ -58,7 +54,6 @@ export class AuthServiceProvider {
   }
 
   public register(credentials) {
-
 
 
     credentials.password = sha256(credentials.password).toString();
@@ -76,12 +71,12 @@ export class AuthServiceProvider {
           }, () => {
             observer.next(false);
             observer.complete();
-      });
+          });
       });
     }
   }
 
-  public getUserInfo() : User {
+  public getUserInfo(): User {
     return this.currentUser;
   }
 
@@ -99,7 +94,7 @@ export class AuthServiceProvider {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure

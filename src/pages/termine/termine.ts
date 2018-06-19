@@ -7,9 +7,11 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../../entities/user";
 import {Termin} from "../../entities/termin";
 import {Status} from "../../entities/status";
-import { AlertController } from 'ionic-angular';
+import {AlertController} from 'ionic-angular';
 
-@IonicPage()
+@IonicPage({
+  priority: "low"
+})
 @Component({
   selector: 'page-termine',
   templateUrl: 'termine.html',
@@ -24,15 +26,15 @@ export class TerminePage {
 
   getStati() {
     let url = this.auth.mainUrl + "/stati";
+    this.showLoading('Bitte Kaffee holen..');
     this.http.get<Status[]>(url, {params: {personId: this.auth.getUserInfo().personId}})
       .subscribe(data => {
         this.stati = data;
-        this.loading.dismissAll();
+        this.dismissLoading();
       });
   }
 
-
-  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, private auth: AuthServiceProvider, public popoverCtrl: PopoverController, private http: HttpClient,private alertCtrl: AlertController) {
+  constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, private auth: AuthServiceProvider, public popoverCtrl: PopoverController, private http: HttpClient, private alertCtrl: AlertController) {
     this.user = this.auth.getUserInfo();
     if (this.termine == null) this.getTermineZuPerson();
     if (this.stati == null) this.getStati();
@@ -40,25 +42,24 @@ export class TerminePage {
 
   getTermineZuPerson() {
     let url = this.auth.mainUrl + "/terminevonperson";
-    this.loading = this.loadingCtrl.create({
-      content: 'Warten auf Termine.\n Bitte Kaffee holen..',
-    });
-    this.loading.present();
+    this.showLoading('Bitte Kaffee holen..');
     this.http.get<Termin[]>(url, {params: {personId: this.user.personId}})
       .subscribe((objekte) => {
         this.termine = objekte;
         this.convertToDateObjects();
-        this.loading.dismiss();
+        this.dismissLoading();
       });
   }
 
 
   convertToDateObjects() {
-    for (let termin of this.termine) {
-      console.log(termin.anfang);
-      termin.anfang = new Date(termin.anfang);
-      console.log(termin.anfang);
-      termin.ende = new Date(termin.ende);
+    if (this.termine.length != 0) {
+      for (let termin of this.termine) {
+        console.log(termin.anfang);
+        termin.anfang = new Date(termin.anfang);
+        console.log(termin.anfang);
+        termin.ende = new Date(termin.ende);
+      }
     }
   }
 
@@ -74,9 +75,7 @@ export class TerminePage {
     let ev = {
       target: {
         getBoundingClientRect: () => {
-          return {
-            
-          };
+          return {};
         }
       }
     };
@@ -103,10 +102,7 @@ export class TerminePage {
 
   buttonClicked(status: number, termin: Termin) {
     let url = this.auth.mainUrl + "/terminperson";
-    let loading = this.loadingCtrl.create({
-      content: 'Bitte Kaffee holen..',
-    });
-    loading.present();
+    this.showLoading('Bitte Kaffee holen..');
     this.http.post<Status>(url, null, {
       params: {
         personId: this.auth.getUserInfo().personId,
@@ -116,7 +112,7 @@ export class TerminePage {
       }
     })
       .subscribe(data => {
-          loading.dismiss();
+          this.dismissLoading()
           let filteredArray = this.stati.filter((status: Status) => {
               return !(data.terminId == status.terminId && data.personId == status.personId);
             }
@@ -131,48 +127,59 @@ export class TerminePage {
   }
 
   deleteTermin(termin: Termin) {
-
-    
     let url = this.auth.mainUrl + "/termin";
-    let loading = this.loadingCtrl.create({
-      content: 'Termin wird gelöscht\nBitte Kaffee holen..',
-    });
-    loading.present();
+    this.showLoading('Termin wird gelöscht\nBitte Kaffee holen..');
     this.http.delete<Status>(url, {params: {terminId: termin.terminId}})
       .subscribe(data => {
           this.getTermineZuPerson();
           this.getStati();
-          loading.dismiss();
+          this.dismissLoading();
         }
       );
 
   }
 
-delete(termin:Termin){
-  this.presentConfirm(termin);
-}
-  
-presentConfirm(termin: Termin) {
-  let alert = this.alertCtrl.create({
-    title: 'Termin löschen',
-    message: 'Möchten Sie den Termin wirklich löschen?',
-    buttons: [
-      {
-        text: 'Abbrechen',
-        role: 'cancel',
-        handler: () => {
-          
+  delete(termin: Termin) {
+    this.presentConfirm(termin);
+  }
+
+  presentConfirm(termin: Termin) {
+    let alert = this.alertCtrl.create({
+      title: 'Termin löschen',
+      message: 'Möchten Sie den Termin wirklich löschen?',
+      buttons: [
+        {
+          text: 'Abbrechen',
+          role: 'cancel',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Löschen',
+          handler: () => {
+            this.deleteTermin(termin);
+          }
         }
-      },
-      {
-        text: 'Löschen',
-        handler: () => {
-          this.deleteTermin(termin);
-        }
-      }
-    ]
-  });
-  alert.present();
-}
+      ]
+    });
+    alert.present();
+  }
+
+  showLoading(text: string) {
+    if (!this.loading) {
+      this.loading = this.loadingCtrl.create({
+        content: text
+      });
+      this.loading.present();
+    }
+  }
+
+  dismissLoading() {
+    if (this.loading) {
+      this.loading.dismiss();
+      this.loading = null;
+    }
+  }
 
 }
