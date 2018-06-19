@@ -10,8 +10,8 @@ import {User} from "../../entities/user";
 @Injectable()
 export class AuthServiceProvider {
   currentUser: User;
-  //mainUrl: string = "http://ec2-34-219-150-87.us-west-2.compute.amazonaws.com:8080";
-  mainUrl: string = "http://localhost:8080";
+  mainUrl: string = "http://ec2-34-219-150-87.us-west-2.compute.amazonaws.com:8080";
+  //mainUrl: string = "http://localhost:8080";
   loginUrl: string = this.mainUrl + "/login";
   registerUrl: string = this.mainUrl + "/register";
 
