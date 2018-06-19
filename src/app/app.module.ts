@@ -16,6 +16,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TerminePage } from '../pages/termine/termine';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import {HttpClientModule} from "@angular/common/http";
+import {LoginPage} from "../pages/login/login";
+import {LoginPageModule} from "../pages/login/login.module";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {HttpClientModule} from "@angular/common/http";
       dayNames: ['Montag', 'Dienstag', 'Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'],
       dayShortNames: ['Mon', 'Die', 'Mit','Don','Fre','Sam','Son'],
     }),
-    HttpClientModule
+    HttpClientModule,
+    LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +52,8 @@ import {HttpClientModule} from "@angular/common/http";
     GruppeHinzufuegenPage,
     TerminErstellenPage,
     MitgliederHinzufuegenPage,
-    TeilnehmerPage
+    TeilnehmerPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

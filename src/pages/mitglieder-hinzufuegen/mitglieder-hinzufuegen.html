@@ -18,7 +18,7 @@
 <ion-searchbar (ionInput)="getItems($event)" ([ngModel])="test"></ion-searchbar>
 <ion-list radio group>
     <ion-item *ngFor="let nutzer of nutzer">
-        <ion-label>{{nutzer.benutzername}}</ion-label>
+        <ion-label>{{nutzer.vorname}} {{nutzer.nachname}} [{{nutzer.benutzername}}]</ion-label>
         <ion-checkbox (ionChange)="selectUser(nutzer)" ></ion-checkbox>
     </ion-item>
   </ion-list>

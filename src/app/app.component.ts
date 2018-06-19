@@ -10,7 +10,10 @@ import { LoginPage } from '../pages/login/login';
 
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  entryComponents: [
+    LoginPage
+  ]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -20,10 +23,10 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private auth: AuthServiceProvider) {
-    
+
     this.initializeApp();
     // used for an example of ngFor and navigation
-    
+
       this.pages = [
           { title: 'Termine', component: TerminePage },
           { title: 'Gruppen', component: GruppenPage }
