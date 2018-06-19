@@ -18,18 +18,20 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import {HttpClientModule} from "@angular/common/http";
 import {LoginPage} from "../pages/login/login";
 import {LoginPageModule} from "../pages/login/login.module";
+import {TerminePageModule} from "../pages/termine/termine.module";
+import {MitgliederPageModule} from "../pages/mitglieder/mitglieder.module";
+import {RegisterPageModule} from "../pages/register/register.module";
+import {GruppenPageModule} from "../pages/gruppen/gruppen.module";
+import {GruppenUebersichtPageModule} from "../pages/gruppen-uebersicht/gruppen-uebersicht.module";
+import {GruppeHinzufuegenPageModule} from "../pages/gruppe-hinzufuegen/gruppe-hinzufuegen.module";
+import {TerminErstellenPageModule} from "../pages/termin-erstellen/termin-erstellen.module";
+import {MitgliederHinzufuegenPageModule} from "../pages/mitglieder-hinzufuegen/mitglieder-hinzufuegen.module";
+import {TeilnehmerPageModule} from "../pages/teilnehmer/teilnehmer.module";
+import {RegisterPage} from "../pages/register/register";
 
 @NgModule({
   declarations: [
     MyApp,
-    TerminePage,
-    MitgliederPage,
-    GruppenPage,
-    GruppenUebersichtPage,
-    GruppeHinzufuegenPage,
-    TerminErstellenPage,
-    MitgliederHinzufuegenPage,
-    TeilnehmerPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,16 @@ import {LoginPageModule} from "../pages/login/login.module";
       dayShortNames: ['Mon', 'Die', 'Mit','Don','Fre','Sam','Son'],
     }),
     HttpClientModule,
-    LoginPageModule
+    TerminePageModule,
+    MitgliederPageModule,
+    GruppenPageModule,
+    GruppenUebersichtPageModule,
+    GruppeHinzufuegenPageModule,
+    TerminErstellenPageModule,
+    MitgliederHinzufuegenPageModule,
+    TeilnehmerPageModule,
+    LoginPageModule,
+    RegisterPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,7 +64,8 @@ import {LoginPageModule} from "../pages/login/login.module";
     TerminErstellenPage,
     MitgliederHinzufuegenPage,
     TeilnehmerPage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
