@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Content, IonicPage, Loading, LoadingController, NavController} from 'ionic-angular';
+import {Content, IonicPage, Loading, LoadingController, NavController, Refresher} from 'ionic-angular';
 import {PopoverController} from 'ionic-angular';
 import {AuthServiceProvider} from '../../providers/auth-service/auth-service';
 import {TeilnehmerPage} from '../teilnehmer/teilnehmer';
@@ -23,34 +23,38 @@ export class TerminePage {
   stati: Status[] = null;
   loading: Loading;
 
-
-  getStati() {
-    let url = this.auth.mainUrl + "/stati";
-    this.showLoading('Bitte Kaffee holen..');
-    this.http.get<Status[]>(url, {params: {personId: this.auth.getUserInfo().personId}})
-      .subscribe(data => {
-        this.stati = data;
-        this.dismissLoading();
-      });
-  }
-
   constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, private auth: AuthServiceProvider, public popoverCtrl: PopoverController, private http: HttpClient, private alertCtrl: AlertController) {
     this.user = this.auth.getUserInfo();
     if (this.termine == null) this.getTermineZuPerson();
     if (this.stati == null) this.getStati();
   }
 
+  doRefresh(refresher) {
+    this.getTermineZuPerson();
+    this.getStati();
+    refresher.complete();
+  }
+
   getTermineZuPerson() {
     let url = this.auth.mainUrl + "/terminevonperson";
-    this.showLoading('Bitte Kaffee holen..');
+      this.showLoading('Bitte Kaffee holen..');
     this.http.get<Termin[]>(url, {params: {personId: this.user.personId}})
       .subscribe((objekte) => {
         this.termine = objekte;
         this.convertToDateObjects();
-        this.dismissLoading();
+          this.dismissLoading();
       });
   }
 
+  getStati() {
+    let url = this.auth.mainUrl + "/stati";
+      this.showLoading('Bitte Kaffee holen..');
+    this.http.get<Status[]>(url, {params: {personId: this.auth.getUserInfo().personId}})
+      .subscribe(data => {
+        this.stati = data;
+          this.dismissLoading();
+      });
+  }
 
   convertToDateObjects() {
     if (this.termine.length != 0) {
